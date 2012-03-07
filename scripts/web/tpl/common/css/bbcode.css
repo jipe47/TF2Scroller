@@ -1,0 +1,14 @@
+.bbcode_underline
+{
+	text-decoration: underline;
+}
+
+.bbcode_list
+{
+	margin: 0;
+	padding-left: 25px;
+}
+.bbcode_list li
+{
+	padding: 0;
+}

@@ -1,0 +1,59 @@
+<div id="div_editor">
+	{if $enable_formtag}
+	<form>
+	{/if}
+	{if $enable_toolbar}
+		<p id="editor_toolbar">
+			<img src="{$PATH_PLUGIN}editor/images/bbcode_bold.png" alt="Bold" title="Bold" onclick="addTag('[b]', '[/b]', 'text{$token}')"/>
+			<img src="{$PATH_PLUGIN}editor/images/bbcode_italic.png" alt="Italic" title="Italic" onclick="addTag('[i]', '[/i]', 'text{$token}')"/>
+			<img src="{$PATH_PLUGIN}editor/images/bbcode_underline.png" alt="Underline" title="Underline" onclick="addTag('[u]', '[/u]', 'text{$token}')"/>
+			<img src="{$PATH_PLUGIN}editor/images/bbcode_stroke.png" alt="Stroke" title="Stroke" onclick="addTag('[s]', '[/s]', 'text{$token}')"/>
+			
+			<img src="{$PATH_PLUGIN}editor/images/bbcode_image.png" alt="Image" title="Image" onclick="addTag('[img]', '[/img]', 'text{$token}')"/>
+			<img src="{$TPL}images/icons/page_goback.png" title="Upload an image" alt="Upload an image" onclick='$("#iframeUpload_{$token}").slideToggle()'' />
+			
+			<img src="{$PATH_PLUGIN}editor/images/bbcode_url.png" alt="Url" title="Url" onclick="addTag('[url]', '[/url]', 'text{$token}')"/>
+			
+			<select id="select_color" onchange="selectChange('text{$token}', 'select_color', 'color', 'Color in hexadecimal (add #).');" tabindex="-1">
+				<option value="none">-- Color --</option>
+				<option value="red">Red</option>
+				<option value="green">Green</option>
+				<option value="blue">Blue</option>
+				<option value="yellow">Yellow</option>
+				<option value="orange">Orange</option>
+				<option value="other">Other</option>
+			</select>
+			
+			<select id="select_size" onchange="selectChange('text{$token}','select_size', 'size', 'Size in px.')" tabindex="-1">
+				<option value="none">-- Size --</option>
+				<option value="9">Very small</option>
+				<option value="11">Small</option>
+				<option value="24">Big</option>
+				<option value="36">Very Big</option>
+			</select>
+			
+			<select id="select_title" onchange="selectChange('text{$token}','select_title', 'title', 'Title level.')" tabindex="-1">
+				<option value="none">-- Title --</option>
+				<option value="1">Title 1</option>
+				<option value="2">Title 2</option>
+				<option value="3">Title 3</option>
+				<option value="4">Title 4</option>
+				<option value="5">Title 5</option>
+				<option value="6">Title 6</option>
+			</select>
+			
+			<!-- <select id="select_font" onchange="selectChange('text{$token}','select_font', 'font', 'Font name.')" tabindex="-1">
+				<option value="none">-- Font --</option>
+			</select> -->
+			
+		</p>
+		{/if}
+		{if $enable_toolbar}
+		<iframe src="?UploadPage/{$token}" frameborder="0" height="50" width="600" scrolling="no" id="iframeUpload_{$token}" style="display: none"></iframe>
+		{/if}
+		<textarea id="text{$token}" rows="{$textarea_row}" cols="{$textarea_col}" name="{$textarea_name}">{$textarea_value}</textarea>
+		
+	{if $enable_formtag}
+	</form>
+	{/if}
+</div>

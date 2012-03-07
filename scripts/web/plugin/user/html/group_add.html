@@ -1,0 +1,41 @@
+<form method="post" action="?Request/User/groupadd" enctype="multipart/form-data">
+	<p>
+	
+	
+	<table class="tab_form">
+		<tr>
+			<td>Name:</td>
+			<td><input type="text" name="name" /></td>
+		</tr>
+		<tr>
+			<td>Description:</td>
+			<td>{plugin p=bbcode textarea_name = description enable_formtag = 0 enable_preview = 0}</td>
+		</tr>
+		<tr>
+			<td>Rights:</td>
+			<td>
+			{if count($array_right) > 0}
+			<ul>
+			{foreach from=$array_right item=r}
+				<li>
+					<input type="checkbox" name="rights[]" value="{$r}" id="{$r}" /> <label for="{$r}">{$r}</label>
+				</li>
+			{/foreach}
+			</ul>
+			{else}
+				No right defined.
+			{/if}
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	
+	
+	<p>
+		<input type="submit" value="Add" class="button_link"/>
+		{backButton}
+	</p>
+</form>

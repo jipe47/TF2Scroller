@@ -1,0 +1,48 @@
+#debugger
+{
+	padding: 5px;
+}
+#debugger h1
+{
+	font-size: 20px;
+	text-decoration: underline;
+}
+#debugger h2
+{
+	font-size: 17px;
+}
+#debugger p, #debugger li
+{
+	font-size: 13px;
+}
+#log_messages
+{
+	max-height: 500px;
+	overflow-y: scroll;
+}
+#log_messages li
+{
+	padding: 2px;
+	list-style-type: none;
+}
+
+#log_messages .info
+{
+	color: blue;
+}
+
+#log_messages .warning
+{
+	color: orange;
+}
+
+#log_messages .error
+{
+	color: red;
+	font-weight: bold;
+}
+
+#log_messages .confirm
+{
+	color: green;
+}

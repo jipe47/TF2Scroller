@@ -1,0 +1,28 @@
+<div id="menu">
+	<ul class="dropdown">
+		<li><a href="?Home">Home</a></li>
+		<li><a href="?Account">My Account</a></li>
+		<li>
+			<a href="?Workgroup">Working groups</a>
+			{if count($array_workgroup_participant) > 0}
+			<ul class="sub_menu">
+				{foreach from=$array_workgroup_participant item=w}
+				<li><a href="?Workgroup/{$w.id}">{$w.name}</a></li>
+				{/foreach}
+			</ul>
+			{/if}
+		</li>
+		<li><a href="?Goodpractice">Good practices</a></li>
+		
+		{if user_hasRight("CONTACT_VIEW")}
+		<li><a href="?Contact">Contact</a></li>
+		{/if}
+		{if $isAdmin || $hasRight}
+		<li><a href="?AdminPanel">Admin</a></li>
+		{/if}
+	</ul>
+		
+	
+	<div class="clearfix">
+	</div>
+</div>

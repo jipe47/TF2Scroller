@@ -1,0 +1,35 @@
+#div_editor #editor_toolbar img
+{
+	cursor: pointer;
+}
+
+.bbcode_preview
+{
+	max-height: 300px;
+	overflow-y: scroll;
+}
+
+.bbcode_parsedtext h1
+{
+}
+
+.bbcode_parsedtext h2
+{
+	background-color: transparent;
+	color: black;
+}
+.bbcode_parsedtext h3
+{
+}
+.bbcode_parsedtext h4
+{
+	color: blue;
+}
+.bbcode_parsedtext h5
+{
+	color: blue;
+}
+.bbcode_parsedtext h6
+{
+	color: blue;
+}

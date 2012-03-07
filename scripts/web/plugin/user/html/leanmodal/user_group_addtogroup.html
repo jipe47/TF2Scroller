@@ -1,0 +1,13 @@
+Select group(s) that <strong>{$user.firstname} {$user.lastname}</strong> will join.
+
+<form method="post" action="?Request/User/userjoingroup">
+<input type="hidden" name="id_user" value="{$user.id}" />
+<ul class="list_admin">
+	{foreach from=$array_group item=g}
+	<li>
+		<input type="checkbox" name="groups[]" value="{$g.id}" id="group{$g.id}" /> <label for="group{$g.id}">{$g.name}</label>
+	</li>
+	{/foreach}
+</ul>
+	<input type="submit" value="Add to this(these) group(s)" class="button_link_big" />
+</form>

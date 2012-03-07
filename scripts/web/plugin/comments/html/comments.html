@@ -1,0 +1,81 @@
+<div id="div_comment" class="comments">
+	{if $allowComment}
+	
+		{if $title != ""}
+			<h2 id="comments">{$title}</h2>
+		{/if}
+		
+		{mkPages back="$back_page" count="$page_count" current="$page_num"}
+		
+		{if count($array_comment) > 0 && $enable_comment}
+		<table class="comment_tab">
+			{foreach from=$array_comment key=i item=c}
+			<tr class="comment_single {if $i%2 == 1}odd{else}even{/if}" id="comment{$c.id}">
+				<td class="comment_user">
+					<strong><a href="?Member/{$c.id_user}">{$c.firstname} {$c.lastname}</a></strong>
+					{if $c.avatar == ""}
+						<img src="{$COMMON}images/empty_avatar.png" />
+					{else}
+						<img src="{$PATH_UPLOAD}user/avatar/mini/{$c.avatar}" />
+					{/if}
+					
+				</td>
+				<td class="comment_content">
+					<div class="comment_info">
+						{if $c.title != ""}
+							{$c.title} - 
+						{/if}
+						
+						<a href="?{$back_page}/c{$c.id}#comment{$c.id}"><img src="{$TPL}images/icons/link.png" title="Permalink" alt="Permalink" /></a>
+						
+						{$c.timestamp_add|date_format:'%d %B %Y at %H:%M '}			
+
+						<div>
+							{if $canEdit}							
+								<a href="?Editcomment/{$c.id}/{$back_complete}"><img src="{$COMMON}images/buttons/edit.png" title="Edit this comment" alt="Edit this comment" /></a>
+							{/if}
+							{if $canDelete && !in_array($c.id, $array_avoid_delete)}
+								<!-- <a href="?Deletecomment/{$c.id}/{$back_complete}"><img src="{$COMMON}images/buttons/delete.png" title="Delete this comment" alt="Delete this comment" /></a> -->
+								<a href="#deleteComment{$c.id}" class="leanModal_button"><img src="{$COMMON}images/buttons/delete.png" title="Delete this comment" alt="Delete this comment" /></a>
+								
+								{html_leanmodal_confirm id="deleteComment{$c.id}" message="Are you sure you want to delete this post?" handler_yes="?Request/Comments/delete/{$c.id}/{$back_complete}"}
+							
+							{/if}
+						</div>
+					</div>
+					
+					{bbcodeparse text=nl2br($c.message)}
+				</td>
+			</tr>
+			{/foreach}
+		</table>
+		{/if}
+		
+		{mkPages back="$back_page" count="$page_count" current="$page_num"}
+		{if $enableForm}
+			{if $allowAnonymous || $isConnected}
+			<div class="comment_form">
+				<form method="post" action="?Request/Comments">
+				
+					<input type="hidden" name="back" value="{$back}" />
+					<input type="hidden" name="comments_type" value="{$comments_type}" />
+					<input type="hidden" name="comments_id_type" value="{$comments_id_type}" />
+					
+					{if !$isConnected && $allowAnonymous}
+					<p>Nickname: <input type="text" name="nickname" /></p>
+					{/if}
+					
+					<p>Title: <input type="text" name="comments_title" value="{$comment_title}" size="40"/></p>
+					{plugin p=bbcode enable_formtag=0 textarea_name="comments_message" enable_preview=0 enable_toolbar=$enable_toolbar}
+									
+					<p><input type="submit" value="Ok" /></p>
+				</form>
+			</div>
+			{else}
+				<p>You must be identified to post a comment.</p>
+			{/if}
+		{/if}
+	{else}
+		<p>Comments are disabled.</p>
+	{/if}
+</div>

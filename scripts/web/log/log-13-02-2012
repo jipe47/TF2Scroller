@@ -1,0 +1,14 @@
+<log>
+	<sessionid>cElfXe0g4M</sessionid>
+	<timestamp>1329092083</timestamp>
+	<type>error</type>
+	<message>The field 'file' is not set.</message>
+	<ip>127.0.0.1</ip>
+</log>
+<log>
+	<sessionid>cElfXe0g4M</sessionid>
+	<timestamp>1329092129</timestamp>
+	<type>error</type>
+	<message>The field 'file' is not set.</message>
+	<ip>127.0.0.1</ip>
+</log>

@@ -1,0 +1,12 @@
+<form method="post" action="?Request/Filemanager/addedit" enctype="multipart/form-data">
+	<input type="hidden" name="back" value="{$back}" />
+	<input type="hidden" name="type" value="{$type}" />
+	<p>File: <input type="file" name="file" />
+	<p>Name: <input type="text" name="name" id="filemanager_title" onkeyup="filemanagerCheckTitle()" /></p>
+	<p>Description</p>
+	{plugin p=bbcode enable_formtag=0 enable_preview=0 textarea_name=description}
+	<p>
+		<input type="submit" value="Upload" class="button_link" id="filemanager_send" disabled="1"/>
+		<input type="button" value="Close" class="button_link" onclick="leanModal_close('{$id}')" />
+	</p>
+</form>

@@ -1,0 +1,63 @@
+.comment_single
+{
+	
+	margin-top: 10px;
+	width: 95%;
+}
+.even
+{
+	background-color: #DCCECA;
+}
+
+.odd
+ {
+	background-color: #EEE7E4;
+ }
+
+.comment_tab
+{
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.comment_user
+{
+	width: 200px;
+	text-align: center;
+	border: 1px black solid;
+}
+
+.comment_tab td
+{
+	padding: 5px;
+	border: 1px brown solid;
+}
+
+.comment_info
+{
+	border-bottom: 1px brown solid;
+	margin: 0px;
+	padding: 1px;
+	margin-bottom: 5px;
+}
+
+.comment_info div
+{
+	float: right;
+}
+
+.comment_content
+{
+	vertical-align: top;
+	position: relative;
+}
+
+.comment_signature
+{
+	border-top: 1px brown solid;
+	position: absolute;
+	bottom: 0;
+	width: 98%;
+	margin: auto;
+	padding: 1px;
+}

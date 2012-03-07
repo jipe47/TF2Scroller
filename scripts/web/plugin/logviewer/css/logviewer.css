@@ -1,0 +1,52 @@
+.logmessage_tab
+{
+	width: 95%;
+	margin: auto;
+	border-collapse: collapse;
+}
+.logmessage_tab td
+{
+	padding: 3px;
+}
+
+.logmessage_tab tr:first-child td
+{
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	-moz-border-radius-topright: 10px;
+	-webkit-border-top-right: 10px;
+	-webkit-border-top-left: 10px;
+}
+
+.logmessage_tab tr:last-child td
+{
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	-moz-border-radius-bottomright: 10px;
+	-webkit-border-bottom-right: 10px;
+	-webkit-border-bottom-left: 10px;
+}
+
+.logmessage_tab td:hover
+{
+	cursor: pointer;
+}
+
+.logmessage_info
+{
+	background-color: #26C4EC;
+}
+.logmessage_warning
+{
+	background-color: #FFD700;
+}
+.logmessage_error
+{
+	background-color: #E9383F;
+}
+.logmessage_confirm
+{
+	background-color: #9FE855;
+}

@@ -1,0 +1,131 @@
+img
+{
+	border: none;
+}
+h1, h2, h3, h4
+{
+	margin-top: 3px;
+}
+h1, h3, h4
+{
+	color: #048388;
+}
+h2
+{
+	background-color: #008A8E;
+	font-size: 16px;
+	padding: 5px;
+	color: white;
+	font-family: Verdana;
+	border-radius: 10px;
+	
+	
+}
+h2 a
+{
+	color: white;
+}
+h3
+{
+	font-size: 16px;
+	text-indent: 10px;
+}
+h4
+{
+	text-indent: 20px;
+}
+a
+{
+	color: #059DA3;
+	text-decoration: none;
+}
+
+a:hover
+{
+	color: #F7901B;
+}
+
+.button_link, .button_link_big
+{
+	background-color: #00A19E;
+	text-decoration: none;
+	color: white;
+	font-weight: bold;
+	border: none;
+}
+.button_link
+{
+	padding: 3px;
+}
+
+.button_link_big, .button_link_big_disabled
+{
+	padding-top: 6px;
+	padding-bottom: 6px;
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
+.button_link:hover, .button_link_big:hover, .button_link_big_disabled:hover
+{
+	cursor: pointer;
+	background-color: #EA8108;
+	color: white;
+}
+.button_link:disabled, .button_link_big:disabled, .button_link_big_disabled
+{
+	background-color: silver;
+}
+.button_image:hover
+{
+	cursor: pointer;
+}
+
+.tab_form
+{
+	width: 90%;
+	padding: 5px;
+}
+
+.tab_form td
+{
+	vertical-align: top;
+	padding-top: 10px;
+}
+
+/* Administration table */
+
+.tab_admin
+{
+	width: 90%;
+	margin: auto;
+	border-collapse: collapse;
+}
+
+.tab_admin th, .tab_admin td
+{
+	border: 1px black solid;
+	padding: 4px;
+}
+
+.tab_admin th
+{
+	background-color: #9A867C;
+	color: white;
+	font-weight: bold;
+}
+
+.tab_admin tr:hover
+{
+	background-color: #C6F19B;
+}
+
+.tab_admin .subtitle
+{
+	background-color: #B19287;
+}
+
+.tab_admin .center
+{
+	text-align: center;
+}

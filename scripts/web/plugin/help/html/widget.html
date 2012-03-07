@@ -1,0 +1,3 @@
+
+<a href="#help{$id_leanmodal}" class="leanModal_button"><img src="{$PATH_PLUGIN}help/images/help_small{if $info == ''}_empty{/if}.png" title="Help" alt="Help" /></a>
+{html_leanmodal title="{if $info != ""}Help: {$info.title}{else}Undefined page{/if}" content_template="{$PATH_PLUGIN}help/html/widget_leanmodal.html" id="help{$id_leanmodal}"}

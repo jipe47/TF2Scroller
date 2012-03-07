@@ -1,0 +1,13 @@
+<form method="post" action="?Request/Filemanager/addedit" enctype="multipart/form-data">
+	<input type="hidden" name="id" value="{$id}" />
+	<input type="hidden" name="back" value="{$back}" />
+	<input type="hidden" name="type" value="{$type}" />
+	{if $id != -1}
+	<p><a href="{$PATH_UPLOAD}filemanager/{$filename}">Current file</a></p>
+	{/if}
+	<p>File: <input type="file" name="file" />
+	<p>Title: <input type="text" name="name" value="{$name}" /></p>
+	<p>Description</p>
+	{plugin p=bbcode enable_formtag=0 enable_preview=0 textarea_name=description textarea_value=$description}
+	<p><input type="submit" value="{$submit}" class="button_link"/></p>
+</form>

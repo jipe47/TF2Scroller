@@ -1,0 +1,20 @@
+<table class="tab_admin">
+	<tr>
+		<th>Name</th>
+		<th>Link</th>
+		<th>Action</th>
+	</tr>
+	{foreach from=$array_file item=f}
+	<tr>
+		<td>{$f.name}</td>
+		<td><a href="{$PATH_UPLOAD}filemanager/{$f.filename}">Download</a></td>
+		<td>
+			<a href="?Admin/Filemanager/edit/{$f.id}/{$back}"><img src="{$COMMON}images/buttons/edit.png" title="Edit this file" alt="Edit this file" /></a>
+			<a href="?Admin/Filemanager/delete/{$f.id}/{}$back"><img src="{$COMMON}images/buttons/delete.png" title="Delete this file" alt="Delete this file" /></a>
+		</td>
+	</tr>
+	{/foreach}
+</table>
+
+<p><a href="?Admin/Filemanager/add/{$type}/{$back}" class="button_link">Add a file</a></p>
+<p><a href="?{$back_from}">Return</a></p>

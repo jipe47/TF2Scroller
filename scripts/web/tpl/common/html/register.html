@@ -1,0 +1,17 @@
+<div class="sub_content" id="div_register">
+	<form method="post" action="?Request/cmp/register">
+		<table>
+		<tr><td>Login:</td><td><input type="text" name="login" id="login" onkeyup="userVerifyLogin()"/> <span id="login_status"></span></td></tr>
+		<tr><td>Password:</td><td><input type="password" name="pass1" id="pass1" onkeyup="userVerifyPass()" /> <span id="pass_status"></span></td></tr>
+		<tr><td>Verify password:</td><td><input type="password" name="pass2" id="pass2" onkeyup="userVerifyPass()" /></td></tr>
+		</table>
+		<hr />
+		<table>
+		<tr><td>Email:</td><td><input type="text" name="email" /></td></tr>
+		<tr><td>Nick:</td><td><input type="text" name="nickname" /></td></tr>
+		</table>
+		<hr />
+		{plugin p=Captcha}
+		<p><input type="submit" value="Register" /></p>
+	</form>
+</div>

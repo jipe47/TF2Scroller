@@ -1,0 +1,41 @@
+<p>Rights of group <strong>{$info.name}</strong>.</p>
+
+{if count($array_right) > 0}
+<form method="post" action="?Request/User/grouprightdelete">
+	<table id="tab_right" class="tab_admin">
+		<tr>
+			<th>Right</th>
+			<th>Description</th>
+			<th width="20"></th>
+		</tr>
+		
+		{foreach from=$array_right item=r}
+		<tr id="line_{$r.name}">
+			<td>{$r.name}</td>
+			<td>{$r.description}</td>
+			<td>
+				<input type="checkbox" onclick="highlightRight('{$r.name}')" id="right_{$r.name}" name="right_{$r.name}" />
+			</td>
+		</tr>
+		{/foreach}
+		
+		<tr>
+			<td colspan="2"></td>
+			<td><input type="checkbox" id="checkAllButton" onclick="checkAllRights('tab_right', $('#checkAllButton').is(':checked'))" /></td>
+		</tr>
+	
+	</table>
+	<input type="hidden" name="id_group" value="{$info.id}" />
+	<p>
+		<a href="#addRight" class="button_link_big leanModal_button">Add a right</a>
+		<input type="submit" value="Delete selected rights" class="button_link_big"/>
+	</p>
+</form>
+{else}
+	<p><em>This group has no rights.</em></p>
+	<p>
+		<a href="#addRight" class="button_link_big leanModal_button">Add a right</a>
+	</p>
+{/if}
+
+{html_leanmodal content_template="{$PATH_PLUGIN}user/html/leanmodal/group_addright.html" title="Add Right" id="addRight" id_group=$info.id all_right=$all_right}

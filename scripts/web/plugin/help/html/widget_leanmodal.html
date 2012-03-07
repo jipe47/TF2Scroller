@@ -1,0 +1,19 @@
+{if $info != ""}
+<!-- <h3>{$info.title}</h3> -->
+
+{bbcodeparse text=$info.content}
+
+{if $isAdmin}
+<p>
+	<a href="?Admin/Help/edit/{$info.id}" class="button_link" onclick="leanModal_close('{$id}')" target="_BLANK">Edit this help page</a>
+</p>
+{/if}
+{else}
+	{message type=error text="This help page does not exist."}
+	
+	{if $isAdmin}
+	<p>
+		<a href="?Admin/Help/add/{$code}" class="button_link" onclick="leanModal_close('{$id}')" target="_BLANK">Make a help page</a>
+	</p>
+	{/if}
+{/if}

@@ -1,0 +1,34 @@
+<h1>Help Pages Management</h1>
+
+<table class="tab_admin">
+	<tr>
+		<th>Code</th>
+		<th>Title</th>
+		<th>Actions</th>
+	</tr>
+	
+	{foreach from=$array_help item=h}
+	<tr>
+		<td>{$h.code}</td>
+		<td>{$h.title}</td>
+		<td>
+			<a href="?Admin/Help/edit/{$h.id}"><img src="{$COMMON}images/buttons/edit.png" title="Edit this page" alt="Edit this page" /></a>
+			<a href="#delete{$h.id}" class="leanModal_button"><img src="{$COMMON}images/buttons/delete.png" title="Delete this page" alt="Delete this page" /></a>
+			
+			
+			
+			{html_leanmodal_confirm id="delete{$h.id}" handler_yes="?Request/Help/delete/{$h.id}" message="Are you sure you want to delete the page <strong>{$h.title}</strong>?"}
+			
+			{plugin p=Help code={$h.code}}
+			
+			<a href="#code{$h.id}" class="leanModal_button"><img src="{$TPL}images/icons/link.png" title="Get code" alt="Get code"/></a>
+			
+			{html_leanmodal title="Code Exportation" id="code{$h.id}" content="<p align='center'><input type='text' size='50' value='{ldelim}plugin p=Help code={$h.code}{rdelim}' /></p>"}
+		</td>
+	</tr>
+	{/foreach}
+</table>
+
+<p>
+	<a href="?Admin/Help/add" class="button_link_big">New Help Page</a>
+</p>

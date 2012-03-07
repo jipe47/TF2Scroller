@@ -1,0 +1,193 @@
+<div id="div_account">
+	<h1>Account Management</h1>
+	
+	{if $account_page != "home"}
+		<form method="post" action="?Request/{$STRUCTURE_NAME}/editaccount" enctype="multipart/form-data">
+			<input type="hidden" name="edit" value="{$account_page}" />
+			
+			{if $account_page == "password"}
+			
+				<p>New password: <input type="password" name="info" id="pass1" onkeyup="userVerifyPass()" /> <span id="pass_status"></span></p>
+				<p>Confirm new password: <input type="password" name="pass2" id="pass2" onkeyup="userVerifyPass()" /></p>
+				<p><input type="submit" value="Edit" class="button_link"/>{backButton type="button"}</p>
+			
+			{else if $account_page == "avatar"}
+			
+				<fieldset>
+					<legend>New picture</legend>
+					<p>Picture: <input type="file" name="file" /></p>
+					<p><input type="submit" value="Upload" /></p>
+				</fieldset>
+				
+				<fieldset>
+					<legend>Current picture</legend>
+				{if $info_user.avatar == ""}
+					<p><em>Pas d'image.</em></p>
+				{else}
+				
+					<img src="{$PATH_UPLOAD}user/avatar/mini/{$info_user.avatar}" />
+					<p><input type="checkbox" name="delete" id="delete" />: <label for="delete">delete this avatar</label></p>
+					<p><input type="submit" value="Ok" /></p>
+				{/if}
+				</fieldset>
+
+			{else if $account_page == "userinfo"}
+				<table class="tab_struct">
+					<tr>
+						<td>Title</td>
+						<td>
+							<select name="title">
+								<option value="mr">Mr</option>
+								<option value="mrs" {if !is_null($info_user.contact) && $info_user.contact.title == "mrs"}selected="selected"{/if}>Mrs</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>Lastname:</td>
+						<td><input type="text" name="lastname" value="{if !is_null($info_user.contact)}{$info_user.contact.lastname}{/if}" /></td>
+					</tr>
+					<tr>
+						<td>Firstname:</td>
+						<td><input type="text" name="firstname" value="{if !is_null($info_user.contact)}{$info_user.contact.firstname}{/if}" /></td>
+					</tr>
+					<tr>
+						<td>Street</td>
+						<td><input type="text" name="street" value="{if !is_null($info_user.contact)}{$info_user.contact.street}{/if}" /></td>
+					</tr>
+					<tr>
+						<td>Number</td>
+						<td><input type="text" name="number" value="{if !is_null($info_user.contact)}{$info_user.contact.number}{/if}" /></td>
+					</tr>
+					<tr>
+						<td>Postal</td>
+						<td><input type="text" name="postal" value="{if !is_null($info_user.contact)}{$info_user.contact.postal}{/if}" /></td>
+					</tr>
+					<tr>
+						<td>City:</td>
+						<td><input type="text" name="city" value="{if !is_null($info_user.contact)}{$info_user.contact.city}{/if}" /></td>
+					</tr>
+					<tr>
+						<td>Country:</td>
+						<td>
+							<!-- Todo: fonction smarty pour afficher les pays -->
+							
+							{if !is_null($info_user.contact)}
+							{html_select_country format=select value=$info_user.contact.country}
+							{else}
+							{html_select_country format=select}
+							{/if}
+						</td>
+					</tr>
+					<tr>
+						<td>Phone</td>
+						<td><input type="text" name="phone" value="{if !is_null($info_user.contact)}{$info_user.contact.phone}{/if}" /></td>
+					</tr>
+					<tr>
+						<td>Fax</td>
+						<td><input type="text" name="fax" value="{if !is_null($info_user.contact)}{$info_user.contact.fax}{/if}" /></td>
+					</tr>
+					<tr>
+						<td>Mobile</td>
+						<td><input type="text" name="mobile" value="{if !is_null($info_user.contact)}{$info_user.contact.mobile}{/if}" /></td>
+					</tr>
+					<tr>
+						<td>Website</td>
+						<td><input type="text" name="website" value="{if !is_null($info_user.contact)}{$info_user.contact.website}{/if}" /></td>
+					</tr>
+				</table>
+				<p><input type="submit" value="Edit" class="button_link"/>{backButton type="button"}</p>
+			{else if $account_page == "editorganisation"}
+				<fieldset>
+					<input type="hidden" name="id_organisation" value="{$org.id_organisation}" />
+					<p>Job: <input type="text" name="job" value="{$org.job}" />
+					<p><input type="submit" value="Edit" /></p>
+				</fieldset>
+				
+				<p><a href="?Admin/User/organisationedit/{$org.id_organisation}/fromuser">Edit this organisation's profil</a></p>
+			{else}
+				<p>{$edit_name}: <input type="text" name="info" value="{$info_user[$edit]}"/></p>
+				<p><input type="submit" value="Edit" class="button_link"/> {backButton type="button"}</p>
+			{/if}
+		</form>
+	{else}
+		<div class="leftcol">
+			<h2>Connection Info</h2>
+			
+			<div class="avatar">
+			{if $info_user.avatar == ""}
+				<img src="{$COMMON}images/empty_avatar.png" />
+			{else}
+				<img src="{$PATH_UPLOAD}user/avatar/mini/{$info_user.avatar}" />
+			{/if}
+			</div>
+			
+			
+			<p>Name: {$info_user.firstname} {$info_user.lastname}<br />
+			Login: {$info_user.login} <a href="?Account/login">Edit</a><br />
+			<a href="?Account/password">Edit password</a><br />
+			Email: {$info_user.email} <a href="?Account/email">Edit</a><br />
+			<a href="?Account/avatar">Edit avatar</a><br />
+			<a href="?Member/{$info_user.id}">View my personal page</a>
+			</p>
+		</div>
+		
+		<div class="rightcol">
+			<h2>User Info</h2>
+			{if !is_null($info_user.contact)}
+			{$info_user.contact.street} {$info_user.contact.number}<br />
+			{$info_user.contact.postal} {$info_user.contact.city}<br />
+			{$info_user.contact.country|countryName}<br />
+			
+			<br />
+			Tel: {$info_user.contact.phone}<br />
+			Fax: {$info_user.contact.fax}<br />
+			Mobile: {$info_user.contact.mobile}<br />
+			<br />
+			Website: <a href="{$info_user.contact.website}">{$info_user.contact.website}</a><br /><br />
+			
+			<a href="?Account/userinfo" class="button_link">Edit my info</a>
+			{else}
+			<p><em>Your account is not associated to a contact. Click on the link below to create an entry.</em></p>
+			<a href="?Account/userinfo" class="button_link_big">Associate a Contact Profil</a>
+			{/if}
+		</div>
+		
+		<div class="clearfix"></div>
+		
+		<div class="leftcol">
+			<h2>My organisation(s)</h2>
+			
+			{if count($array_org) > 0}
+			<ul class="list_admin">
+			{foreach from=$array_org item=o}
+				<li>
+					<a href="?Admin/User/organisationedit/{$o.id}/fromaccount"><img src="{$TPL}images/icons/building_edit.png" title="Edit my organisation profil" alt="Edit my organisation profil" /></a>
+					<a href="#orgProfil{$o.id}" class="leanModal_button"><img src="{$TPL}images/icons/user_edit.png" title="Edit this organisation" alt="Edit this organisation" /></a>
+					
+					{if $o.isContact}
+					<img src="{$TPL}images/icons/award_star_gold_3.png" title="You are the organisation contact" alt="You are the organisation contact"/>
+					{else}
+					&nbsp;&nbsp;
+					{/if}
+					
+					{if $o.isSubstitute}
+					<img src="{$TPL}images/icons/award_star_silver_3.png" title="You are the organisation substitute" alt="You are the organisation substitute"/>
+					{else}
+					&nbsp;&nbsp;
+					{/if}
+					
+					<a href="?Request/deleteuserorganisation/{$o.id}"><img src="{$COMMON}images/buttons/delete.png" title="Delete my link to this organisation" alt="Delete my link to this organisation" /></a>
+					<a href="?Organisation/{$o.id}">{$o.name}</a> - {$o.job}<br />
+				</li>
+			{html_leanmodal id="orgProfil{$o.id}" id_organisation=$o.id job=$o.job title="Edit my Organisation Profil" content_template="{$COMMON}html/leanmodal/account_editorganisationprofil.html"}
+			{/foreach}
+			</ul>
+			{else}
+			<p><em>You do not belong to any organisation.</em></p>
+			{/if}
+		</div>
+		
+		<div class="clearfix"></div>
+	{/if}
+	
+</div>

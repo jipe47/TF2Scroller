@@ -1,0 +1,21 @@
+<div id="userbar">
+	<div class="left">
+	{if $isConnected}
+		<a href="?Account"><img src="{$PATH_PLUGIN}user/images/cog.png" title="My account" alt="My account" /></a>
+		<a href="?Member/{$id_user}">{$user_nickname}</a> &nbsp;
+		<a href="?Request/{$STRUCTURE_NAME}/logoff/{$smarty.server.QUERY_STRING}"><img class="logoff" src="{$COMMON}images/buttons/logout.png" alt="Log out" title="Log out"/></a> &nbsp;
+	{else}
+		<em>You are not connected.</em>
+	{/if}
+	</div>
+	
+	<div class="chattabs">
+		
+	</div>
+	
+	{if $isConnected}
+	<div class="right">
+		{plugin p=OnlineMember type="userbar"}
+	</div>
+	{/if}
+</div>

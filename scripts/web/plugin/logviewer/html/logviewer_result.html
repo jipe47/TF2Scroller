@@ -1,0 +1,10 @@
+{foreach from=$logs item=r}
+	<h2>{$r.date}</h2>
+	<table class="logmessage_tab">
+		{foreach from=$r.logs item=l}
+		<tr class="logmessage_{$l.type}">
+			<td>{$l.timestamp|date_format:"%D %H:%M:%S"} : {$l.message}</td>
+		</tr>
+		{/foreach}
+	</table>
+{/foreach}

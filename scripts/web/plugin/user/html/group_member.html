@@ -1,0 +1,27 @@
+<p>Member(s) of <strong>{$info.name}</strong>.</p>
+
+<table class="tab_admin">
+	<tr>			
+		<th>User</th>
+		<th width="20">Actions</th>
+	</tr>
+	
+	{foreach from=$array_user item=u}
+	<tr>
+		<td>{$u.firstname} {$u.lastname}</td>
+		<td>
+			<a href="?Request/User/groupmemberdelete/{$info.id}/{$u.id}"><img src="{$COMMON}images/buttons/delete.png" alt="Remove member" title="Remove member" /></a>
+		</td>
+	</tr>
+	{/foreach}
+</table>
+
+<form method="post" action="?Request/User/groupmemberadd">
+	<input type="hidden" name="id_group" value="{$info.id}" />
+	<div id="div_selected_user">
+	</div>
+	<p><input type="submit" value="Add selected members" /></p>
+	{plugin p=User display=search textarea_name=users_to_add id_avoid=$id_avoid}
+	
+</form>
+	

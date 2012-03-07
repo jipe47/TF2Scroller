@@ -1,0 +1,10 @@
+{$confirm_message}
+
+<div class="leanModal_confirm_buttons">
+<p>
+	<a {if $handler_yes != ""}href="{$handler_yes}"{/if} class="button_link_big" onclick="leanModal_close('{$id}');">Yes</a>
+	<a {if $handler_no != ""}href="{$handler_no}"{/if} class="button_link_big" onclick="leanModal_close('{$id}');">No</a>
+</p>
+</div>
+
+<div class="clearfix"></div>

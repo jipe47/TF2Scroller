@@ -1,0 +1,21 @@
+<table class="tab_admin">
+	<tr>
+		<th>Group</th>
+		<th>Number of Members</th>
+		<th width="100">Actions</th>
+	</tr>
+	{foreach from=$array_group item=g}
+	<tr>
+		<td>{$g.name}</td>
+		<td>{$array_count.{$g.id}}</td>
+		<td>
+			<a href="?Admin/User/groupedit/{$g.id}"><img src="{$COMMON}images/buttons/edit.png" title="Edit" alt="Edit"/></a>
+			<a href="?Admin/User/groupdelete/{$g.id}"><img src="{$COMMON}images/buttons/delete.png" title="Delete" alt="Delete"/></a>
+			<a href="?Admin/User/groupmember/{$g.id}"><img src="{$PATH_PLUGIN}user/images/member.png" title="Manage members" alt="Manage members"/></a>
+			<a href="?Admin/User/groupright/{$g.id}"><img src="{$PATH_PLUGIN}user/images/right.png" title="Manage rights" alt="Manage rights"/></a>
+		</td>
+	</tr>
+	{/foreach}
+</table>
+
+<p><a href="?Admin/User/groupadd" class="button_link_big">Add a group</a></p>

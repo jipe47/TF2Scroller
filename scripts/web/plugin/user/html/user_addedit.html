@@ -1,0 +1,153 @@
+<form method="post" action="?Request/User/useradd">
+	<input type="hidden" name="id_user" value="{$info.id}" />
+	<h2>Connection info</h2>
+	<table class="tab_form tab_login" >
+		<tr>
+			<td class="left">Login*:</td>
+			<td>
+				<input type="text" name="login" id="login" value="{$info.login}" onkeyup="userVerifyLogin('{$info.login}')"/>
+				<span id="login_status"></span>
+			</td>
+		</tr>
+		<tr>
+			<td class="left">Password*:</td>
+			<td>
+				<input type="password" name="pass1" id="pass1" onkeyup="userVerifyPass()" />
+				<span id="pass_status"></span>
+			</td>
+		</tr>
+		<tr>
+			<td class="left">Confirm password*:</td>
+			<td><input type="password" name="pass2" id="pass2" onkeyup="userVerifyPass()" /></td>
+		</tr>
+		<tr>
+			<td class="left"><input type="button" onclick="userGeneratePassword();" value="Generate password" class="button_link" /></td>
+			<td><input type="text" id="pass_generated" /></td>
+		</tr>
+		<tr>
+			<td>
+				<label for="admin">Administrator:</label>
+			</td>
+			<td>
+				<input type="checkbox" name="admin" id="admin"{if intval($info.isAdmin)} checked="checked"{/if}/>
+			</td>
+		</tr>
+		<tr>
+			<td>Lastname*:</td>
+			<td><input type="text" name="lastname" value="{$info.lastname}" /></td>
+		</tr>
+		<tr>
+			<td>Firstname*:</td>
+			<td><input type="text" name="firstname" value="{$info.firstname}" /></td>
+		</tr>
+		<tr>
+			<td>Email*:</td>
+			<td><input type="text" name="email" value="{$info.email}" /></td>
+		</tr>
+	</table>
+	<p><em>*: these fields must be completed.</em></p>
+	
+	<h2>User info</h2>
+	
+	<input type="hidden" name="id_contact" value="{$info.id_contact}" />
+	<table class="tab_form">
+		<tr>
+			<td>
+				<label for="createContactEntry">Insert an entry in the contact database**:</label>
+			</td>
+			<td>
+				<input type="checkbox" name="createContactEntry" id="createContactEntry"{if $info.id_contact != ""} checked="checked"{/if}/>
+			</td>
+		</tr>
+		<tr>
+			<td>Title:</td>
+			<td>
+				<select name="title">
+					<option value="mr">Mr</option>
+					<option value="mrs" {if $info.title == "mrs"}selected="selected"{/if}>Mrs</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>Street:</td>
+			<td><input type="text" name="street" value="{$info.street}" /></td>
+		</tr>
+		<tr>
+			<td>Number:</td>
+			<td><input type="text" name="number" value="{$info.number}" /></td>
+		</tr>
+		<tr>
+			<td>Postal:</td>
+			<td><input type="text" name="postal" value="{$info.postal}" /></td>
+		</tr>
+		<tr>
+			<td>City:</td>
+			<td><input type="text" name="city" value="{$info.city}" /></td>
+		</tr>
+		<tr>
+			<td>Country:</td>
+			<td>
+				{html_select_country format=select value=$info.country}
+			</td>
+		</tr>
+		<tr>
+			<td>Phone:</td>
+			<td><input type="text" name="phone" value="{$info.phone}" /></td>
+		</tr>
+		<tr>
+			<td>Fax:</td>
+			<td><input type="text" name="fax" value="{$info.fax}" /></td>
+		</tr>
+		<tr>
+			<td>Mobile:</td>
+			<td><input type="text" name="mobile" value="{$info.mobile}" /></td>
+		</tr>
+		<tr>
+			<td>Website:</td>
+			<td><input type="text" name="website" value="{$info.website}" /></td>
+		</tr>
+	</table>
+	
+	<p>
+		<em>**: if this checkbox is unchecked, any nonmandatory data (street, country, etc) will be lost.</em>
+	</p>
+	
+	{if count($array_group) > 0}
+	<h2>Groups</h2>
+		{foreach from=$array_group item=g}
+		<p><input type="checkbox" name="groups[]" value="{$g.id}" id="group_{$g.id}" {if in_array($g.id, $array_user_group)}checked="checked"{/if} /> : <label for="group_{$g.id}">{$g.name}</label></p>
+		{/foreach}
+	{/if}
+	<h2>Organisations</h2>
+	
+	<p>You can select organisation(s) to which this member belong.</p>
+	
+	<table class="tab_admin" id="tab_org">
+		<tr>
+			<th></th>
+			<th>Name</th>
+			<th>Job</th>
+			<th>Contact</th>
+			<th>Substitute</th>
+		</tr>
+		{foreach from=$array_org item=o}
+		<tr>
+			<td><input type="checkbox" id="org_{$o.id}" name="organisations[]" value="{$o.id}" {if array_key_exists($o.id, $array_user_org)}checked="checked"{/if}/></td>
+			<td><label for="org_{$o.id}">{$o.name}</label></td>
+			<td><input type="text" name="job_{$o.id}" {if array_key_exists($o.id, $array_user_org)}value="{$array_user_org.{$o.id}.job}"{/if}//></td>
+			<td>
+				<input type="checkbox" name="contact[]" value="{$o.id}" {if array_key_exists($o.id, $array_user_org) && $array_user_org.{$o.id}.isContact}checked="checked"{/if} />
+			</td>
+			<td>
+				<input type="checkbox" name="substitute[]" value="{$o.id}" {if array_key_exists($o.id, $array_user_org) && $array_user_org.{$o.id}.isSubstitute}checked="checked"{/if} />
+			</td>
+		</tr>
+		{/foreach}
+	</table>
+				
+		<!--<p>Add an organisation: <input type="text" name="new_org" /> ; Job : <input type="text" name="job_new" /></p> -->
+		<p><a href="#addOrg" class="leanModal_button button_link">Add an organisation</a></p>
+	<p><input type="submit" value="{$textbutton}" class="button_link_big" /></p>
+</form>
+
+{html_leanmodal id="addOrg" content_template="{$PATH_PLUGIN}user/html/leanmodal/addorganisation.html" title="New organisation"}

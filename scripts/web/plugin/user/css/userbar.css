@@ -1,0 +1,176 @@
+#userbar
+{
+	border-bottom: 2px black solid;
+	background-image: url('../images/userbar_bck.png');
+	
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 9000;
+	
+	width: 100%;
+	min-height: 24px;
+	
+	padding: 3px;
+	
+	font-size: 13px;
+}
+
+#userbar .left
+{
+	float: left;
+}
+
+#userbar .right
+{
+	float: right;
+	margin-right: 4px;
+}
+#userbar #loading
+{
+	float: right;
+}
+
+#userbar #members
+{
+	display: none;
+	position: fixed;
+	top: 30px;
+	right: 0px;
+	z-index: 8999;
+	
+	background-color: #E7DFDC;
+	
+	border: 1px black solid;
+	
+	padding: 5px;
+	max-height: 650px;
+	overflow: scrollbar;
+}
+
+#userbar #onlinemember_content
+{
+	margin-right: 30px;
+	margin-top: 4px;
+}
+
+#userbar .chattabs
+{
+	float: left;
+	padding: 0px;
+	margin: 0px;
+	max-width: 75%;
+}
+#userbar .conversation
+{
+	float: left;
+/*	border: 1px blue solid;*/
+	margin-left: 10px;
+}
+#userbar .chattab
+{
+	cursor: pointer;
+	
+	border: 1px black solid;
+
+	max-width: 150px;
+	
+	padding: 2px;
+	padding-left: 8px;
+	padding-right: 8px;
+	
+	font-size: 14px;
+	color: white;
+	background-color: #008A8E;
+}
+
+/*
+#userbar .newmessage
+{
+	background-color: red;
+}
+*/
+
+#userbar .chatwindow
+{
+	background-color: white;
+	border: 2px #035355 solid;
+	
+	min-width: 300px;
+	min-height: 300px;
+	
+	max-width: 700px;
+	
+	position: absolute;
+	
+	display: none;
+	
+	z-index: 5;
+}
+
+#userbar .chatwindow .title
+{
+	background-color: #008A8E;
+	padding: 3px;
+	font-size: 15px;
+	padding-left: 15px;
+	color: white;
+	cursor: move;
+}
+
+#userbar .chatwindow .title .button_close
+{
+	float: right;
+	cursor: pointer;
+}
+
+#userbar .chatwindow .content
+{
+	min-height: 200px;
+}
+
+#userbar .chatwindow .form
+{
+	border-top: 1px silver solid;
+	
+	padding: 3px;
+	padding-top: 5px;
+}
+
+#userbar .chatwindow .form .button
+{
+	float: right;
+}
+
+#userbar .chatwindow .form .button input
+{
+	padding: 23px;
+}
+
+#userbar .tab_opened
+{
+	background-color: #06BEC4;
+}
+
+#userbar .content
+{
+	height: 250px;
+	overflow: auto;
+}
+
+#userbar .content .message
+{
+	font-size: 11px;
+}
+#userbar .content .old
+{
+	color: gray;
+}
+#userbar .content .date
+{
+	margin: 3px;
+}
+#userbar .content .you
+{
+	color: silver;
+}

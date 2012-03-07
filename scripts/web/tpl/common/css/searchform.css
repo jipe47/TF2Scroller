@@ -1,0 +1,58 @@
+.search_criteria
+{
+	border: 1px black solid;
+	width: 80%;
+	margin: auto;
+	padding: 0px;
+	margin-top: 10px;
+}
+
+.search_criteria .container
+{
+	max-height: 400px;
+	overflow: auto;
+}
+.search_criteria .title
+{
+	background-color: #85C17E;
+	padding: 2px;
+	padding-left: 10px;
+	font-size: 15px;
+}
+
+.search_criteria .list
+{
+	display: none;
+	padding: 5px;
+}
+
+.search_criteria .button
+{
+	float: right;
+	cursor: pointer;
+	margin-right: 3px;
+}
+
+.search_criteria .button_hidden
+{
+	display: none;
+}
+
+.search_criteria .sublist li
+{
+	float: left;
+	width: 235px;
+	list-style-type: none;
+	margin-left: 0px;
+}
+
+.search_criteria .sublist_small li
+{
+	font-size: 11px;
+}
+
+.search_criteria .sublist p
+{
+	border-bottom: 1px black solid;
+	font-weight: bold;
+}

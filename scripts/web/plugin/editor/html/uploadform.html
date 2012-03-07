@@ -1,0 +1,28 @@
+<form method="post" action="?UploadPage/{$token}" enctype="multipart/form-data">
+	<p><input type="file" name="file"  /> <input type="submit" value="Send" class="button_link"/></p>
+</form>
+
+{if $showlink}
+<hr />
+<table>
+	<tr>
+		<td>Direct link: </td>
+		<td><input type="text" size="70" value="{$link}" /></td>
+	</tr>
+	<tr>
+		<td>Img link: </td>
+		<td><input type="text" size="70" value="[img]{$link}[/img]" /></td>
+	</tr>
+	<tr>
+		<td>Thumb (150px): </td>
+		<td><input type="text" size="70" value="[url={$link}][img]{$link_150}[/img][/url]" /></td>
+	</tr>
+	<tr>
+		<td>Thumb (350px): </td>
+		<td><input type="text" size="70" value="[url={$link}][img]{$link_350}[/img][/url]" /></td>
+	</tr><tr>
+		<td>Thumb (500px): </td>
+		<td><input type="text" size="70" value="[url={$link}][img]{$link_500}[/img][/url]" /></td>
+	</tr>
+</table>
+{/if}

@@ -1,0 +1,41 @@
+<form method="post" action="?Request/User/organisationaddedit" enctype="multipart/form-data">
+	<input type="hidden" name="id" value="{$id}" />
+	<input type="hidden" name="fromaccount" value="{$fromaccount}" />
+	<fieldset>
+		<legend>Information</legend>
+		
+		<table class="tab_form">
+			<tr>
+				<td>Name:</td>
+				<td><input type="text" name="name" value="{$name}"/></td>
+			</tr>
+			<tr>
+				<td>Description:</td>
+				<td>{plugin p=bbcode textarea_name=description textarea_value=$description enable_preview=0 enable_formtag=0}</td>
+			</tr>
+		</table>
+		<p></p>
+		
+		
+	</fieldset>
+	
+	{if $logo != ""}
+	<fieldset>
+		<legend>Logo</legend>
+		<p>Current logo:</p>
+		<img src="{$PATH_UPLOAD}user/organisation/mini/{$logo}" />
+		<p>
+			<input type="checkbox" name="delete_logo" id="delete_logo" />: 
+			<label for="delete_logo">Delete this logo</label> (this will discard the new logo if you specified one)
+		</p>
+	</fieldset>
+	{/if}
+	
+	<fieldset>
+		<legend>New logo</legend>
+		<p>New logo: <input type="file" name="file" /></p>
+	</fieldset>
+	
+	
+	<p><input type="submit" value="{$submit}" class="button_link_big"/></p>
+</form>

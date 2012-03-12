@@ -13,7 +13,7 @@
 font-size: 12px; 
 font-weight: bold; 
 float: left; zoom: 1; 
-background: #A99890; 
+background-color: #002FA7; 
 color: white;
 padding: 0px 10px 0px 10px;
 margin-right: 20px;
@@ -27,7 +27,7 @@ font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 #menu ul.dropdown li:last-child a         { border-right: none; } /* Doesn't work in IE */
 #menu ul.dropdown li.hover,
-#menu ul.dropdown li:hover                { background: #00A19E; color: black; position: relative; }
+#menu ul.dropdown li:hover                { background-color: #E08B1C; color: black; position: relative; }
 
 
 /* 

@@ -14,10 +14,6 @@ class Home extends Page
 		
 		LocationBar::add("Home", "?Home");
 
-		if(!User::isConnected())
-			$this->setLocation("Login");
-		else
-			$this->setTemplate(TPL."html/home.html");
-		
+		$this->setTemplate(TPL."html/home.html");
 	}
 }

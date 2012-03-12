@@ -1,21 +1,29 @@
 html
 {
+	
 }
 body
 {
+	background-color: #95B1E5;
 }
 #superglobal
 {
 	
 }
 
-
-
-
+.content
+{
+	background-color: #CFDCF3;
+	border: 2px #0F056B solid;
+	padding: 5px;
+}
 
 #header
 {
 	
+	padding: 5px;
+	font-size: 48px;
+	font-family: Verdana;
 }
 
 
@@ -26,15 +34,16 @@ body
 
 #footer
 {
-	
+	text-align: center;
+	padding: 3px;
+	font-size: 12px;
+	margin-top: 10px;
 }
 
 .clearfix
 {
 	clear: both;
 }
-
-
 
 
 /* Account Page */

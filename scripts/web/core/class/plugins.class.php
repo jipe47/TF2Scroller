@@ -85,6 +85,7 @@ class Plugins
 		$dir_handle= @opendir($path) or die("Cannot open <strong>" . $path . "</strong> for include.");
 	
 		$array_htmlheaders = array("js", "css");
+		$array_allowed_constant = array("js", "css", "php", "html");
 	
 		while($file = readdir($dir_handle))
 		{
@@ -104,6 +105,9 @@ class Plugins
 						HtmlHeaders::includeDir($f, $path.$file."/".$f);
 					else if($f == "php")
 						Config::includePath($path.$file."/".$f, false);
+					
+					if(in_array($f, $array_allowed_constant))
+						define(strtoupper($f)."_".strtoupper($file), $path.$file."/".$f."/");
 				}
 	
 				if(file_exists($path.$file."/config.ini"))

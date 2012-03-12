@@ -12,7 +12,7 @@ class Footer extends Page
 		parent::__construct("");
 		$this->setTemplate("tpl/default/html/footer.html");
 		$this->tpl->assign('webmaster_name', 'Jean-Philippe Collette');
-		$start = 2011;
+		$start = 2012;
 		$currentY = date("Y", time());
 		
 		if($start != $currentY)

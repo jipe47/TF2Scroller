@@ -1,14 +1,13 @@
 #userbar
 {
 	border-bottom: 2px black solid;
-	background-image: url('../images/userbar_bck.png');
-	
+	border-left: 2px black solid;
+	background-color: silver;
 	position: fixed;
 	top: 0;
-	left: 0;
+	right: 0;
 	z-index: 9000;
 	
-	width: 100%;
 	min-height: 24px;
 	
 	padding: 3px;

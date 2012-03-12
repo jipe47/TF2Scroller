@@ -62,8 +62,8 @@ $chrono->stop("Common template inclusion");
 //<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 $favheader = new HtmlHeader(HtmlHeader::LINK);
 $favheader->set("rel", "icon");
-$favheader->set("type", "image/jpeg");
-$favheader->set("href", TPL."images/favicon.jpg");
+$favheader->set("type", "image/png");
+$favheader->set("href", TPL."images/favicon.png");
 HtmlHeaders::addHeader($favheader);
 
 $favheader = clone $favheader;

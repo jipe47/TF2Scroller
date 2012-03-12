@@ -1,8 +1,0 @@
-{if count($array_announce) > 0}
-<div id="announce">
-	<h2>Announce(s)</h2>
-	{foreach from=$array_announce item=a}
-		<a href="{$a.link}">{$a.timestamp|date_format:"%d/%m/%Y"} : {$a.title}</a><br />
-	{/foreach}
-</div>
-{/if}

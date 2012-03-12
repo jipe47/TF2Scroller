@@ -45,7 +45,7 @@ define("CHATSERVER_FILE_ERROR", "server_chat/server.error");
 /* MySQL CONSTANTS */
 /*******************/
 
-define("FORCE_LOCAL", 0);
+define("FORCE_LOCAL", 1);
 
 define("SQL_PREFIX", "");
 define("CONSTANT_PREFIX", "TABLE_");

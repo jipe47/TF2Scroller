@@ -1,18 +1,12 @@
 html
 {
-	background-color: #A99890;
 }
 body
 {
-	font: 12px Verdana,Arial,Helvetica,sans-serif;
 }
 #superglobal
 {
-	background-color: #EBE3E0;
-	width: 955px;
-	margin: auto;
 	
-	margin-top: 30px; /* Avoid the user bar */
 }
 
 
@@ -21,63 +15,20 @@ body
 
 #header
 {
-	height: 200px;
-	width: 955px;
 	
-	background-image: url('../images/header.jpg');
 }
 
 
-/*
-#menu ul
-{
-	list-style: none;
-}
-
-#menu li
-{
-	float: left;
-	margin-right: 20px;
-}
-
-#menu li a
-{
-	height: 20px;
-	text-decoration: none;
-	padding: 5px 20px 5px 20px;
-	color: white;
-	font-size: 16px;
-	font-weight: bold;
-	background-color: #A99890;
-}
-#menu li a:hover
-{
-	background-color: #00A19E;
-}
-*/
 #global
 {
-	padding: 5px;
-	padding-top: 0px;
+	
 }
 
 #footer
 {
-	text-align: center;
-	font-size: 11px;
-	border-top: 1px silver solid;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	padding-top: 5px;
+	
 }
 
-.sub_content
-{
-	width: auto;
-	background-color: white;
-	border-radius: 10px;
-	padding: 5px;
-}
 .clearfix
 {
 	clear: both;
@@ -85,41 +36,6 @@ body
 
 
 
-.list_admin
-{
-	list-style-type: none;
-}
-
-.tab_struct
-{
-	width: 100%;
-}
-
-.tab_struct td
-{
-	vertical-align: top;
-}
-
-
-/* Home */
-
-#div_home
-{
-	
-}
-
-#div_home .leftcol
-{
-	float: left;
-	width: 60%;
-	padding: 5px;
-}
-#div_home .rightcol
-{
-	width: 37%;
-	float: right;
-	padding: 5px;
-}
 
 /* Account Page */
 

@@ -27,7 +27,6 @@ class UserPlugin extends Plugin
 		switch($arg['display'])
 		{
 			case "userbar":
-				Config::addOnloadFunction("userChatInit()");
 				$f = "widget_userbar";
 				break;
 				

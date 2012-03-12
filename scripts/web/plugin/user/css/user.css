@@ -22,26 +22,6 @@
 	margin-left: 210px;
 }
 
-#organisation .logo
-{
-	margin: auto;
-	width: 100%;
-	text-align: center;
-}
-#organisation .members
-{
-}
-#organisation .files
-{
-	float: right;
-	width: 300px;
-	border-left: 1px silver solid;
-	padding-left: 10px;
-}
-
-.tab_login
-{
-}
 
 .tab_login .left
 {

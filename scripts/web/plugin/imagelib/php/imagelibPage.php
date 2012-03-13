@@ -5,5 +5,9 @@ class Imagelib extends Page
 	{
 		parent::__construct($arg);
 		$this->setTemplate(HTML_IMAGELIB."home.html");
+		$this->setTitle("ImageLib");
+		
+		
+	 
 	}
 }

@@ -11,5 +11,7 @@ abstract class AjaxPage extends HandlerPage
 	public function __construct($arg)
 	{
 		parent::__construct($arg);
+		$this->setFullRender(false);
+		$this->showHeaders(false);
 	}
 }

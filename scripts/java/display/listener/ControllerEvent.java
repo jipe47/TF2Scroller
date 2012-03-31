@@ -4,7 +4,7 @@ public class ControllerEvent {
 
 	private ControllerAction action;
 	private EventContainer eventContainer;
-	public ControllerEvent(ControllerAction action, EventContainer eventcontainer)
+	public ControllerEvent(ControllerAction action, EventContainer eventContainer)
 	{
 		this.action = action;
 		this.eventContainer = eventContainer;

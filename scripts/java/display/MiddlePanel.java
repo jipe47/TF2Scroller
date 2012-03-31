@@ -7,7 +7,10 @@ import javax.swing.JPanel;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
-public class MiddlePanel extends JPanel implements TreeSelectionListener, ActionListener {
+import display.listener.ControllerEvent;
+import display.listener.ControllerListener;
+
+public class MiddlePanel extends JPanel implements TreeSelectionListener, ActionListener, ControllerListener {
 	
 	MiddlePanel()
 	{
@@ -15,10 +18,14 @@ public class MiddlePanel extends JPanel implements TreeSelectionListener, Action
 	}
 
 	public void valueChanged(TreeSelectionEvent e) {
-		System.out.println("S�lection de " + e.getPath().getLastPathComponent());
+		System.out.println("Selected: " + e.getPath().getLastPathComponent());
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		
+	}
+
+	public void actionPerformed(ControllerEvent arg0) {
 		
 	}
 

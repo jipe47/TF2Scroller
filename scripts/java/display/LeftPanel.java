@@ -1,6 +1,9 @@
 package display;
 
+import imagemanager.ImageTree;
+
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -13,8 +16,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
 
-public class LeftPanel extends JPanel implements ActionListener {
+import display.listener.ControllerAction;
+import display.listener.ControllerEvent;
+import display.listener.ControllerListener;
+
+public class LeftPanel extends JPanel implements ControllerListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -23,46 +31,45 @@ public class LeftPanel extends JPanel implements ActionListener {
 	private MiddlePanel mp;
 
 	private JTree tree;
+	private DefaultMutableTreeNode root;
 
 	public LeftPanel(MiddlePanel mp) {
 		super();
 		this.mp = mp;
-
-		tree = new JTree();
+		
+		root = new DefaultMutableTreeNode("Root");
+		
+		tree = new JTree(root);
 		tree_view = new JScrollPane(tree);
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		tree.addTreeSelectionListener(mp);
 		
-		
 		this.add(tree_view, BorderLayout.CENTER);
+		this.setMinimumSize(new Dimension(300, 42));
 	}
-
+	
 	public String getDirectory() {
 		return directory;
 	}
 
-	public void loadDirectory(String s) {
-		directory = s;
-		File root = new File(s);
-		FileTreeModel model = new FileTreeModel(root);
-
-		tree.setModel(model);
-		// tree_view.setViewportView(tree);
-	}
-
-	public void actionPerformed(ActionEvent arg0) {
-		/*if (arg0.getActionCommand().equals("Open Directory")) {
-			chooser.setDialogTitle("Choose a directory to explore");
-			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-			chooser.setAcceptAllFileFilterUsed(false);
-
-			if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-				String s = chooser.getCurrentDirectory().getAbsolutePath();
-				this.loadDirectory(s);
-			} else {
-				System.out.println("No Selection ");
+	public void actionPerformed(ControllerEvent arg0) {
+		if(arg0.getAction() == ControllerAction.loadXml)
+		{
+			ImageTree t = (ImageTree) arg0.getArg("imagetree");
+			
+			if(t == null)
+			{
+				System.err.println("t NULL :(");
 			}
-		}*/
+			System.out.println("Updating tree");
+			t.insertIntoTree(root);
+			//tree.setModel(root);
+			tree = new JTree(root);
+			tree_view = new JScrollPane(tree);
+			this.repaint();
+			System.out.println("Update complete");
+		}
 	}
+
 }

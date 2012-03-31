@@ -28,15 +28,23 @@ public class Toolbar extends JToolBar implements ActionListener{
 		
 		saveButton = new JButton("Save");
 		saveButton.addActionListener(this);
+		saveButton.setFocusable(false);
+		
 		newButton = new JButton("New");
 		newButton.addActionListener(this);
+		newButton.setFocusable(false);
+		
 		openButton = new JButton("Open");
 		openButton.addActionListener(this);
+		openButton.setFocusable(false);
 		
 		newAnimationButton = new JButton("New Animation");
 		newAnimationButton.addActionListener(this);
+		newAnimationButton.setFocusable(false);
+		
 		newImageButton = new JButton("New Image");
 		newImageButton.addActionListener(this);
+		newImageButton.setFocusable(false);
 		
 		this.add(newButton);
 		this.add(openButton);
@@ -51,29 +59,6 @@ public class Toolbar extends JToolBar implements ActionListener{
 		this.listeners.add(l);
 	}
 	public void actionPerformed(ActionEvent arg0) {
-		/*Object s = arg0.getSource();
-		
-		if(s == saveButton)
-		{
-			
-		}
-		else if(s == newButton)
-		{
-			
-		}
-		else if(s == openButton)
-		{
-			
-		}
-		else if(s == newAnimationButton)
-		{
-			
-		}
-		else if(s == newImageButton)
-		{
-			
-		}*/
-		
 		for(int i = 0 ; i < listeners.size() ; i++)
 			listeners.get(i).actionPerformed(arg0);
 	}

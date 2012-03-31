@@ -18,9 +18,7 @@ public class LeftPanel extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
-	private JButton loadButton;
 	private JScrollPane tree_view;
-	private JFileChooser chooser;
 	private String directory;
 	private MiddlePanel mp;
 
@@ -30,20 +28,13 @@ public class LeftPanel extends JPanel implements ActionListener {
 		super();
 		this.mp = mp;
 
-		chooser = new JFileChooser();
-		chooser.setCurrentDirectory(new java.io.File("."));
-
 		tree = new JTree();
 		tree_view = new JScrollPane(tree);
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-		loadButton = new JButton("Choose a dir");
-		loadButton.addActionListener(this);
-
-		this.add(loadButton, BorderLayout.CENTER);
-
 		tree.addTreeSelectionListener(mp);
-		loadDirectory("C:/");
+		
+		
 		this.add(tree_view, BorderLayout.CENTER);
 	}
 
@@ -61,7 +52,7 @@ public class LeftPanel extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-		if (arg0.getActionCommand().equals("Open Directory")) {
+		/*if (arg0.getActionCommand().equals("Open Directory")) {
 			chooser.setDialogTitle("Choose a directory to explore");
 			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			chooser.setAcceptAllFileFilterUsed(false);
@@ -72,6 +63,6 @@ public class LeftPanel extends JPanel implements ActionListener {
 			} else {
 				System.out.println("No Selection ");
 			}
-		}
+		}*/
 	}
 }

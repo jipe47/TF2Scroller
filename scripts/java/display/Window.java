@@ -3,6 +3,8 @@ package display;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
@@ -11,7 +13,7 @@ import javax.swing.JSplitPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public class Window extends JFrame{
+public class Window extends JFrame implements ActionListener{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -19,14 +21,17 @@ public class Window extends JFrame{
 	
 	private LeftPanel lp;
 	private MiddlePanel mp;
-	private RightPanel rp;
+	
+	private NewFileWindow nfw;
+	private NewImageWindow niw;
+	private NewAnimationWindow naw;
+	
+	private Controller controller;
 
 	public Window()
 	{
-		this.setPreferredSize(new Dimension(1280, 720));
-		this.setTitle("Scroller Scripting");
-		this.setIconImage(new ImageIcon(getClass().getResource("icon.png")).getImage());		
-			
+		controller = new Controller();
+		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e) {
@@ -43,32 +48,62 @@ public class Window extends JFrame{
 			e.printStackTrace();
 		}
 		
-		tb = new Toolbar();
-		
-		this.add(tb, BorderLayout.NORTH);
-		
-		mp = new MiddlePanel();
-		lp = new LeftPanel(mp);
-		rp = new RightPanel(lp);
-		
-		tb.addActionListener(mp);
-		tb.addActionListener(rp);
-		tb.addActionListener(lp);
-		
-		/*
-		JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, lp, mp);
-		JSplitPane split2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, split, rp);
-		
-		this.getContentPane().add(split2, BorderLayout.CENTER);
-		*/
-		
-		this.getContentPane().add(lp, BorderLayout.WEST);
-		this.getContentPane().add(mp, BorderLayout.CENTER);
-		this.getContentPane().add(rp, BorderLayout.EAST);
+		initComponents();
 		
 		this.pack();
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+	
+	private void initComponents()
+	{
+		nfw = new NewFileWindow(this, true);
+		niw = new NewImageWindow(this, true);
+		naw = new NewAnimationWindow(this, true);
+		
+		nfw.setVisible(false);
+		niw.setVisible(false);
+		naw.setVisible(false);
+		
+		nfw.addListener(controller);
+		niw.addListener(controller);
+		naw.addListener(controller);
+		
+		this.setPreferredSize(new Dimension(1280, 720));
+		this.setTitle("Scroller Scripting");
+		this.setIconImage(new ImageIcon(getClass().getResource("icon.png")).getImage());		
+		
+		tb = new Toolbar();
+		tb.addActionListener(this);
+		this.add(tb, BorderLayout.NORTH);
+		
+		mp = new MiddlePanel();
+		lp = new LeftPanel(mp);
+		
+		JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, lp, mp);
+		this.getContentPane().add(split, BorderLayout.CENTER);
+	}
+
+	public void actionPerformed(ActionEvent arg0)
+	{
+		String cmd = arg0.getActionCommand();
+		
+		if(cmd.equals("New"))
+		{
+			this.nfw.setVisible(true);
+		}
+		else if(cmd.equals("New Animation"))
+		{
+			this.naw.setVisible(true);
+		}
+		else if(cmd.equals("New Image"))
+		{
+			this.niw.setVisible(true);
+		}/*
+		else if(cmd.equals(""))
+		{
+			
+		}*/
 	}
 
 }

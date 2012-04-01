@@ -24,7 +24,7 @@ public class Window extends JFrame implements ActionListener {
 	private LeftPanel lp;
 	private MiddlePanel mp;
 
-	private NewProjectWindow nfw;
+	private NewProjectWindow npw;
 	private NewImageWindow niw;
 	private NewAnimationWindow naw;
 
@@ -43,17 +43,21 @@ public class Window extends JFrame implements ActionListener {
 	}
 
 	private void initComponents() {
-		nfw = new NewProjectWindow(this, true);
+		npw = new NewProjectWindow(this, true);
 		niw = new NewImageWindow(this, true);
 		naw = new NewAnimationWindow(this, true);
 
-		nfw.setVisible(false);
+		npw.setVisible(false);
 		niw.setVisible(false);
 		naw.setVisible(false);
 
-		nfw.addListener(controller);
+		npw.addListener(controller);
 		niw.addListener(controller);
 		naw.addListener(controller);
+		
+		npw.addListener(niw);
+		npw.addListener(naw);
+	
 
 		this.setPreferredSize(new Dimension(1280, 720));
 		this.setTitle("Scroller Scripting");
@@ -62,6 +66,7 @@ public class Window extends JFrame implements ActionListener {
 
 		tb = new Toolbar();
 		tb.addActionListener(this);
+		tb.addActionListener(controller);
 		this.add(tb, BorderLayout.NORTH);
 
 		mp = new MiddlePanel();
@@ -78,7 +83,7 @@ public class Window extends JFrame implements ActionListener {
 		String cmd = arg0.getActionCommand();
 
 		if (cmd.equals("New")) {
-			this.nfw.setVisible(true);
+			this.npw.setVisible(true);
 		} else if (cmd.equals("New Animation")) {
 			this.naw.setVisible(true);
 		} else if (cmd.equals("New Image")) {
@@ -102,7 +107,6 @@ public class Window extends JFrame implements ActionListener {
 			}
 
 		} else if (cmd.equals("Save")) {
-			controller.saveXml();
 		}
 
 		/*

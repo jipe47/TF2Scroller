@@ -17,6 +17,7 @@ import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 import display.listener.ControllerAction;
 import display.listener.ControllerEvent;
@@ -27,7 +28,7 @@ public class LeftPanel extends JPanel implements ControllerListener {
 	private static final long serialVersionUID = 1L;
 
 	private JScrollPane tree_view;
-	private String directory;
+	private DefaultTreeModel tree_model;
 	private MiddlePanel mp;
 
 	private JTree tree;
@@ -38,20 +39,18 @@ public class LeftPanel extends JPanel implements ControllerListener {
 		this.mp = mp;
 		
 		root = new DefaultMutableTreeNode("Root");
-		
-		tree = new JTree(root);
+		tree_model = new DefaultTreeModel(root);
+		tree = new JTree(tree_model);
 		tree_view = new JScrollPane(tree);
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		tree.addTreeSelectionListener(mp);
 		
+		
 		this.add(tree_view, BorderLayout.CENTER);
 		this.setMinimumSize(new Dimension(300, 42));
 	}
 	
-	public String getDirectory() {
-		return directory;
-	}
 
 	public void actionPerformed(ControllerEvent arg0) {
 		if(arg0.getAction() == ControllerAction.loadXml)
@@ -63,11 +62,10 @@ public class LeftPanel extends JPanel implements ControllerListener {
 				System.err.println("t NULL :(");
 			}
 			System.out.println("Updating tree");
+			root = new DefaultMutableTreeNode("Root");
 			t.insertIntoTree(root);
-			//tree.setModel(root);
-			tree = new JTree(root);
-			tree_view = new JScrollPane(tree);
-			this.repaint();
+			tree_model.setRoot(root);
+			
 			System.out.println("Update complete");
 		}
 	}

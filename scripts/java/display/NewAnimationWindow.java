@@ -4,6 +4,8 @@
  */
 package display;
 
+import display.listener.WizardAction;
+import display.listener.WizardEvent;
 import display.listener.WizardEventEmitter;
 import display.listener.WizardListener;
 
@@ -11,7 +13,7 @@ import display.listener.WizardListener;
  *
  * @author SERVER
  */
-public class NewAnimationWindow extends javax.swing.JDialog {
+public class NewAnimationWindow extends javax.swing.JDialog implements WizardListener {
 
 	private static final long serialVersionUID = 1L;
 	private WizardEventEmitter we;
@@ -353,4 +355,14 @@ public class NewAnimationWindow extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
+
+
+	public void actionPerformed(WizardEvent arg0) {
+		WizardAction action = arg0.getAction();
+		
+		if(action == WizardAction.NewProject)
+		{
+			
+		}
+	}
 }

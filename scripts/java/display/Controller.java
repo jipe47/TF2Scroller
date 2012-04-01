@@ -1,5 +1,7 @@
 package display;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -26,7 +28,7 @@ import display.listener.WizardAction;
 import display.listener.WizardEvent;
 import display.listener.WizardListener;
 
-public class Controller implements WizardListener {
+public class Controller implements WizardListener, ActionListener {
 	
 	private ArrayList<ImageInfo> imagelist;
 	private ImageTree imagetree;
@@ -34,6 +36,7 @@ public class Controller implements WizardListener {
 	private String xmlFile, imageDirectory;
 	private boolean xmlFileExists;
 	private ControllerEventEmitter eventEmitter;
+	
 	
 
 	public Controller()
@@ -61,11 +64,32 @@ public class Controller implements WizardListener {
 			imageDirectory = (String) arg0.getArg("directory");
 			System.out.println("Controller: open " + xmlFile + " in " + imageDirectory);
 			xmlFileExists = false;
-			//loadXmlFile();
+		}
+		else if(action == WizardAction.NewImage)
+		{
+			String file = (String) arg0.getArg("file");
+			String name = (String) arg0.getArg("name");
+			String destination = (String) arg0.getArg("destination");
+			String resizeW = (String) arg0.getArg("resizeW");
+			String resizeH = (String) arg0.getArg("resizeH");
+			
+			boolean ratio = (Boolean) arg0.getArg("ratio");
+			boolean deleteSource = (Boolean) arg0.getArg("deleteSource");
+			
+			ImageInfo img = new ImageInfo();
+			img.setAnimated(false);
+			img.setName(name);
+			img.setPath(destination);
+			
+			imagelist.add(img);
+			imagetree.addNode(destination, img);
+			
+			EventContainer ec = new EventContainer();
+			ec.addArg("imagetree", imagetree);
+			
+			this.eventEmitter.fireEvent(new ControllerEvent(ControllerAction.loadXml, ec));
 		}
 	}
-	
-	
 	
 	public void loadXmlFile(String s)
 	{
@@ -168,6 +192,7 @@ public class Controller implements WizardListener {
 	
 	public void saveXml()
 	{
+		System.out.println("Saving XML....");
 		try {
 			FileOutputStream fos = new FileOutputStream(new File(xmlFile));
 			String l = "<root directory=\""+imageDirectory+"\">\n";
@@ -177,13 +202,18 @@ public class Controller implements WizardListener {
 			fos.write("</root>\n".getBytes());
 			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		System.out.println("Done!");
+	}
+
+	public void actionPerformed(ActionEvent arg0) {
+		if(arg0.getActionCommand() == "Save")
+		{
+			this.saveXml();
+		}
 	}
 
 }

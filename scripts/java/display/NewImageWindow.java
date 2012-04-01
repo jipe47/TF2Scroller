@@ -4,6 +4,13 @@
  */
 package display;
 
+import java.io.IOException;
+
+import javax.swing.JFileChooser;
+
+import display.listener.EventContainer;
+import display.listener.WizardAction;
+import display.listener.WizardEvent;
 import display.listener.WizardEventEmitter;
 import display.listener.WizardListener;
 
@@ -11,13 +18,17 @@ import display.listener.WizardListener;
  *
  * @author SERVER
  */
-public class NewImageWindow extends javax.swing.JDialog {
+public class NewImageWindow extends javax.swing.JDialog implements WizardListener {
 
 	private static final long serialVersionUID = 1L;
 	private WizardEventEmitter we;
+	private String defaultDestination;
+	
+	private JFileChooser chooser;
 	
     public NewImageWindow(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        chooser = new JFileChooser();
         initComponents();
         we = new WizardEventEmitter();
         this.setLocationRelativeTo(null);
@@ -36,66 +47,86 @@ public class NewImageWindow extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        nameLabel = new javax.swing.JLabel();
+        inputName = new javax.swing.JTextField();
+        fileLabel = new javax.swing.JLabel();
+        inputFile = new javax.swing.JTextField();
+        fileBrowseButton = new javax.swing.JButton();
+        resizeLabel = new javax.swing.JLabel();
+        inputResizeW = new javax.swing.JTextField();
+        xLabel = new javax.swing.JLabel();
+        inputResizeH = new javax.swing.JTextField();
+        ratioCheckbox = new javax.swing.JCheckBox();
+        destinationLabel = new javax.swing.JLabel();
+        inputDestination = new javax.swing.JTextField();
+        destinationBrowseButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        deleteSourceCheckbox = new javax.swing.JCheckBox();
+        cancelButton = new javax.swing.JButton();
+        validButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
 
         setTitle("New Image");
 
-        jLabel1.setText("Name:");
+        nameLabel.setText("Name:");
 
-        jLabel2.setText("File:");
+        fileLabel.setText("File:");
 
-        jButton1.setText("Browse");
+        fileBrowseButton.setText("Browse");
+        fileBrowseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chooseFile();
+            }
+        });
 
-        jLabel3.setText("Resize:");
+        resizeLabel.setText("Resize:");
 
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("x");
+        xLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        xLabel.setText("x");
 
-        jCheckBox1.setText("Keep ratio");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        ratioCheckbox.setText("Keep ratio");
+        ratioCheckbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox1ActionPerformed(evt);
             }
         });
 
-        jLabel5.setText("Destination:");
+        destinationLabel.setText("Destination:");
 
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        inputDestination.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField5ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Browse");
+        destinationBrowseButton.setText("Browse");
+        destinationBrowseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chooseDestination();
+            }
+        });
 
-        jCheckBox2.setText("Delete source file");
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+        deleteSourceCheckbox.setText("Delete source file");
+        deleteSourceCheckbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox2ActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Cancel");
+        cancelButton.setText("Cancel");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancel();
+            }
+        });
 
-        jButton4.setText("Add");
+        validButton.setText("Add");
+        validButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                valid();
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -123,39 +154,39 @@ public class NewImageWindow extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator1))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
+                        .addComponent(destinationLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField5)
+                        .addComponent(inputDestination)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2))
+                        .addComponent(destinationBrowseButton))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton4)
+                        .addComponent(validButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3))
+                        .addComponent(cancelButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
+                                    .addComponent(nameLabel)
+                                    .addComponent(fileLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(inputName, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(inputFile, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton1))
+                                        .addComponent(fileBrowseButton))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(inputResizeW, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(xLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(inputResizeH, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jCheckBox1))))
-                            .addComponent(jLabel3)
-                            .addComponent(jCheckBox2))
+                                        .addComponent(ratioCheckbox))))
+                            .addComponent(resizeLabel)
+                            .addComponent(deleteSourceCheckbox))
                         .addGap(0, 7, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -164,28 +195,28 @@ public class NewImageWindow extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nameLabel)
+                    .addComponent(inputName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(fileLabel)
+                    .addComponent(inputFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fileBrowseButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
+                    .addComponent(resizeLabel)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jCheckBox1)))
+                        .addComponent(xLabel)
+                        .addComponent(inputResizeW, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(inputResizeH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ratioCheckbox)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(destinationLabel)
+                    .addComponent(inputDestination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(destinationBrowseButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox2)
+                .addComponent(deleteSourceCheckbox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -194,8 +225,8 @@ public class NewImageWindow extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(cancelButton)
+                    .addComponent(validButton))
                 .addContainerGap())
         );
 
@@ -213,26 +244,103 @@ public class NewImageWindow extends javax.swing.JDialog {
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox2ActionPerformed
+    
+    private void chooseFile()
+    {
+    	chooser.setDialogTitle("Choose an image");
+		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		chooser.setAcceptAllFileFilterUsed(false);
 
+		if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+			String s = "-1";
+			try {
+				s = chooser.getSelectedFile().getCanonicalPath();
+				this.inputFile.setText(s);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+    }
+    
+    private void chooseDestination()
+    {
+    	chooser.setDialogTitle("Choose a destination");
+		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		chooser.setAcceptAllFileFilterUsed(false);
+
+		if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+			String s = "-1";
+			try {
+				s = chooser.getSelectedFile().getCanonicalPath();
+				this.inputDestination.setText(s);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+    }
+    private void valid()
+    {
+    	EventContainer ec = new EventContainer();
+    	ec.addArg("name", inputName.getText());
+    	ec.addArg("file", inputFile.getText());
+    	ec.addArg("resizeW", inputResizeW.getText());
+    	ec.addArg("resizeH", inputResizeH.getText());
+    	ec.addArg("ratio", ratioCheckbox.isSelected());
+    	ec.addArg("deleteSource", deleteSourceCheckbox.isSelected());
+    	ec.addArg("destination", inputDestination.getText());
+    	
+    	we.fireEvent(new WizardEvent(WizardAction.NewImage, ec));
+    	
+    	cancel();
+    }
+    
+    private void cancel()
+    {
+    	this.setVisible(false);
+    	reset();
+    }
+    
+    private void reset()
+    {
+    	inputName.setText("");
+    	inputFile.setText("");
+    	inputResizeW.setText("");
+    	inputResizeH.setText("");
+    	ratioCheckbox.setSelected(true);
+    	deleteSourceCheckbox.setSelected(false);
+    	inputDestination.setText(defaultDestination);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JButton fileBrowseButton;
+    private javax.swing.JButton destinationBrowseButton;
+    private javax.swing.JButton cancelButton;
+    private javax.swing.JButton validButton;
+    private javax.swing.JCheckBox ratioCheckbox;
+    private javax.swing.JCheckBox deleteSourceCheckbox;
+    private javax.swing.JLabel nameLabel;
+    private javax.swing.JLabel fileLabel;
+    private javax.swing.JLabel resizeLabel;
+    private javax.swing.JLabel xLabel;
+    private javax.swing.JLabel destinationLabel;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField inputName;
+    private javax.swing.JTextField inputFile;
+    private javax.swing.JTextField inputResizeW;
+    private javax.swing.JTextField inputResizeH;
+    private javax.swing.JTextField inputDestination;
     // End of variables declaration//GEN-END:variables
+
+	public void actionPerformed(WizardEvent arg0) {
+		WizardAction action = arg0.getAction();
+		
+		if(action == WizardAction.NewProject)
+		{
+			this.defaultDestination = (String) arg0.getArg("directory");
+		}
+	}
 }

@@ -1,8 +1,0 @@
-<form method="post" action="?Request/User/userbandelete">
-	<input type="hidden" name="id_ban" value="{$info.id}" />
-	<p>Voulez-vous vraiment dÃ©bannir <strong>{if $info.id_user == 0}{$info.ip}{else}{$info.nickname}{/if}</strong> ?</p>
-	<p>
-		<input type="submit" value="Oui" />
-		{backButton type="button" text="Non"}
-	</p>
-</form>

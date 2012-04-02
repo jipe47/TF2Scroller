@@ -1,8 +1,0 @@
-<p>Are you sure you want to delete <strong>{$info.firstname} {$info.lastname}</strong>?
-<form method="post" action="?Request/User/userdelete">
-	<input type="hidden" name="id_user" value="{$info.id}" />
-	<p>
-		<input type="submit" value="Yes" class="button_link"/>
-		{backButton text="No" type="button"}
-	</p>
-</form>

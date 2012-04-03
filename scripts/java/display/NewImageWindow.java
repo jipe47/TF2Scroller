@@ -64,7 +64,7 @@ public class NewImageWindow extends javax.swing.JDialog implements WizardListene
         deleteSourceCheckbox = new javax.swing.JCheckBox();
         cancelButton = new javax.swing.JButton();
         validButton = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        imagepreview = new ImagePreview();
         jLabel6 = new javax.swing.JLabel();
 
         setTitle("New Image");
@@ -128,8 +128,8 @@ public class NewImageWindow extends javax.swing.JDialog implements WizardListene
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(imagepreview);
+        imagepreview.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
@@ -148,7 +148,7 @@ public class NewImageWindow extends javax.swing.JDialog implements WizardListene
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(imagepreview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -222,7 +222,7 @@ public class NewImageWindow extends javax.swing.JDialog implements WizardListene
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(imagepreview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
@@ -256,6 +256,9 @@ public class NewImageWindow extends javax.swing.JDialog implements WizardListene
 			try {
 				s = chooser.getSelectedFile().getCanonicalPath();
 				this.inputFile.setText(s);
+				System.out.println("Previewing " + s);
+				this.imagepreview.setImage(s);
+				this.imagepreview.repaint();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -326,7 +329,7 @@ public class NewImageWindow extends javax.swing.JDialog implements WizardListene
     private javax.swing.JLabel xLabel;
     private javax.swing.JLabel destinationLabel;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
+    private ImagePreview imagepreview;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField inputName;
     private javax.swing.JTextField inputFile;

@@ -4,6 +4,7 @@
  */
 package display;
 
+import java.awt.Dimension;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
@@ -31,7 +32,9 @@ public class NewImageWindow extends javax.swing.JDialog implements WizardListene
         chooser = new JFileChooser();
         initComponents();
         we = new WizardEventEmitter();
+        
         this.setLocationRelativeTo(null);
+        this.setMinimumSize(new Dimension(400, 350));
     }
     
     public void addListener(WizardListener l)
@@ -221,13 +224,13 @@ public class NewImageWindow extends javax.swing.JDialog implements WizardListene
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(imagepreview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelButton)
-                    .addComponent(validButton))
-                .addContainerGap())
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(imagepreview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cancelButton)
+                        .addComponent(validButton))
+                    .addContainerGap())
         );
 
         pack();

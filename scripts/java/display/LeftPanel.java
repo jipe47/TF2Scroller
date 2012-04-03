@@ -69,5 +69,4 @@ public class LeftPanel extends JPanel implements ControllerListener {
 			System.out.println("Update complete");
 		}
 	}
-
 }

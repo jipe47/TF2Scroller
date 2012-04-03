@@ -5,8 +5,12 @@
 package display;
 
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 
 import display.listener.EventContainer;
@@ -35,6 +39,8 @@ public class NewImageWindow extends javax.swing.JDialog implements WizardListene
         
         this.setLocationRelativeTo(null);
         this.setMinimumSize(new Dimension(400, 350));
+        
+        reset();
     }
     
     public void addListener(WizardListener l)
@@ -87,11 +93,31 @@ public class NewImageWindow extends javax.swing.JDialog implements WizardListene
 
         xLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         xLabel.setText("x");
+        
+        this.inputResizeW.addKeyListener(new java.awt.event.KeyListener() {
+			public void keyPressed(KeyEvent arg0) {	}
+
+			public void keyReleased(KeyEvent arg0) { }
+
+			public void keyTyped(KeyEvent arg0) {
+				updateResizeFromWidth();
+			}
+        });
+        
+        this.inputResizeH.addKeyListener(new java.awt.event.KeyListener() {
+			public void keyPressed(KeyEvent arg0) {	}
+
+			public void keyReleased(KeyEvent arg0) { }
+
+			public void keyTyped(KeyEvent arg0) {
+				updateResizeFromHeight();	
+			}
+        });
 
         ratioCheckbox.setText("Keep ratio");
         ratioCheckbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                updateResizeFromWidth();
             }
         });
 
@@ -235,10 +261,25 @@ public class NewImageWindow extends javax.swing.JDialog implements WizardListene
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    
+    private void updateResizeFromWidth()
+    {
+    	if(this.ratioCheckbox.isSelected() && this.inputResizeW.getText() != "")
+    	{
+    		int w = Integer.valueOf(this.inputResizeW.getText());
+    		
+    		inputResizeH.setText(String.valueOf((int) (w * initRatio)));
+    	}
+    }
+    
+    private void updateResizeFromHeight()
+    {
+    	if(this.ratioCheckbox.isSelected() && this.inputResizeH.getText() != "")
+    	{
+    		int h = Integer.valueOf(this.inputResizeH.getText());
+    		inputResizeW.setText(String.valueOf((int) (h / initRatio)));
+    	}
+    }
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
         // TODO add your handling code here:
@@ -259,9 +300,18 @@ public class NewImageWindow extends javax.swing.JDialog implements WizardListene
 			try {
 				s = chooser.getSelectedFile().getCanonicalPath();
 				this.inputFile.setText(s);
-				System.out.println("Previewing " + s);
-				this.imagepreview.setImage(s);
+
+				Image image = Toolkit.getDefaultToolkit().getImage(s);
+				ImageIcon imageicon = new ImageIcon(image);
+				this.imagepreview.setImage(imageicon);
 				this.imagepreview.repaint();
+				
+				initWidth = imageicon.getIconWidth();
+				initHeight = imageicon.getIconHeight();
+				initRatio = (float) initWidth / (float) initHeight;
+				
+				this.inputResizeW.setText(String.valueOf(initWidth));
+				this.inputResizeH.setText(String.valueOf(initHeight));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -319,11 +369,15 @@ public class NewImageWindow extends javax.swing.JDialog implements WizardListene
     	inputDestination.setText(defaultDestination);
     }
     
+    private int initWidth, initHeight;
+    private float initRatio;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton fileBrowseButton;
     private javax.swing.JButton destinationBrowseButton;
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton validButton;
+    private javax.swing.JButton resetSizeButton; // TODO Incorporate
     private javax.swing.JCheckBox ratioCheckbox;
     private javax.swing.JCheckBox deleteSourceCheckbox;
     private javax.swing.JLabel nameLabel;

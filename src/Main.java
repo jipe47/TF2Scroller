@@ -1,8 +1,10 @@
-import Gui.Window;
+import GUI.Window;
 
-public class TF2Scroller {
+
+public class Main {
+
 	public static void main(String[] args) {
 		new Window();
-
 	}
+
 }

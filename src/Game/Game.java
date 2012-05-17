@@ -1,55 +1,131 @@
 package Game;
 
-import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
-import Display.Screen;
+import Display.GameColor;
+import Physic.Entity;
+import Physic.PhysicEngine;
 
-public class Game extends JPanel implements KeyListener, ActionListener {
+@SuppressWarnings("serial")
+public class Game extends JPanel implements ActionListener, KeyListener {
 	
-	private static final long serialVersionUID = 1L;
-
-	private final int GAMESPEED = 20;
+	public static final int GAMESPEED = 30;
 	
-	public final static int LEFT = -1;
-	public final static int RIGHT = 1;
-	private Timer t;
-	private Screen screen;
+	private ArrayList<Entity> entities;
+	private PhysicEngine physicEngine;
+	private Timer timer;
+	private int frame;
 	
+	private Player player;
 	
-	public Game() {
-		this.requestFocus();
-		setFocusable(true);
-		this.addKeyListener(this);
-		this.screen = new Screen(this);
+	public Game()
+	{
+		frame = 0;
 		
-		t = new Timer(GAMESPEED, this);
+		physicEngine = new PhysicEngine();
+		entities = new ArrayList<Entity>();
+		
+		timer = new Timer(GAMESPEED, this);
+		timer.start();
+		
+		player = new Player();
+		this.addEntity(new Block(400, 100, 100, 100));
+		//this.addEntity(new Block(20, 500, 800, 100));
+		
+		this.addEntity(player);
+		this.addKeyListener(this);
+		
+		setFocusable(true);
+		this.requestFocus();
+		
 	}
+
+	private void addEntity(Entity e)
+	{
+		this.entities.add(e);
+		this.physicEngine.addEntity(e);
+	}
+	
+
+	// Refresh
+	public void actionPerformed(ActionEvent arg0) {
+		physicEngine.update();
+		this.repaint();
+		//Debug.echo("Frame " + frame);
+		frame++;
+	}
+
+	public void keyPressed(KeyEvent arg0) {
+		
+		switch(arg0.getKeyCode())
+		{
+			case KeyEvent.VK_LEFT:
+				player.moveLeft();
+				break;
+			case KeyEvent.VK_RIGHT:
+				player.moveRight();
+				break;
+			case KeyEvent.VK_UP:
+				player.moveUp();
+				break;
+			case KeyEvent.VK_DOWN:
+				player.moveDown();
+				break;
+			default:
+				Debug.echo("Unsupported key");
+		}
+	}
+
+	public void keyReleased(KeyEvent arg0) {
+		switch(arg0.getKeyCode())
+		{
+			case KeyEvent.VK_LEFT:
+			case KeyEvent.VK_RIGHT:
+			case KeyEvent.VK_UP:
+			case KeyEvent.VK_DOWN:
+				player.stop();
+				break;
+		}
+	}
+
+	public void keyTyped(KeyEvent arg0) {
+	}
+	
 	
 	public void paintComponent(Graphics g) {
 		
 		Graphics2D g2d = (Graphics2D) g;
-		screen.render(g2d);
+		
+		// Draw background
+		g2d.setColor(GameColor.white);
+		g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+		
+		// Draw entities
+		for(int i = 0 ; i < entities.size() ; i++)
+			entities.get(i).render(g2d);
+		
+		// Draw collisions
+		Entity e, f;
+		for(int i = 0 ; i < entities.size() ; i++)
+		{
+			e = entities.get(i);
+			for(int j = i + 1 ; j < entities.size() ; j++)
+			{
+				f = entities.get(j);
+				e.drawCollision(f, g2d);
+			}
+		}
 	}
 
-	// Refresh
-	public void actionPerformed(ActionEvent arg0) {
-		
-		this.repaint();
-	}
 	
-	public void keyPressed(KeyEvent e) {
-		
-	}
-	public void keyReleased(KeyEvent e) {
-		
-	}
-	
-	public void keyTyped(KeyEvent e) {
-		
-	}
 }

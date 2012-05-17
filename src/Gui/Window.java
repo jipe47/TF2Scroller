@@ -1,19 +1,18 @@
-package Gui;
+package GUI;
 
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import Game.Game;
 
+@SuppressWarnings("serial")
 public class Window extends JFrame {
-
-	private static final long serialVersionUID = -8255319694373975038L;
-
-	private JPanel game;
-
-	public Window() {
+	
+	private Game game;
+	
+	public Window()
+	{
 		this.setTitle("TF2Scroller");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -27,4 +26,5 @@ public class Window extends JFrame {
 		this.pack();
 		this.setLocationRelativeTo(null);
 	}
+
 }

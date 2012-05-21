@@ -22,6 +22,11 @@ public class PhysicEngine {
 	
 	public void update()
 	{
+		
+		// Update entities' position
+		for(int i = 0 ; i < entities.size() ; i++)
+			updatePosition(entities.get(i));
+				
 		// Check for collisions
 		Entity e;
 		Entity f;
@@ -84,21 +89,19 @@ public class PhysicEngine {
 				}
 			}
 		
-		/*	if(!bottomCollision)
+			if(!bottomCollision)
 			{
 				e.setDdy(-1);
 			}
 			else
 			{
 				e.setDdy(0);
-			}*/
+			}
 			
 			
 		}
 		
-		// Update entities' position
-		for(int i = 0 ; i < entities.size() ; i++)
-			updatePosition(entities.get(i));
+		
 	}
 	
 	public void updatePosition(Entity e)

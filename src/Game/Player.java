@@ -27,11 +27,12 @@ public class Player extends Entity {
 	}
 	public void moveUp()
 	{
-		this.setDy(10);
+		if(this.getDy() == 0)
+			this.setDdy(20);
 	}
 	public void moveDown()
 	{
-		this.setDy(-10);
+		//this.setDy(-60);
 	}
 	public void stop()
 	{

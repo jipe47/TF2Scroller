@@ -172,22 +172,47 @@ public abstract class Entity {
 	
 	public boolean onLeftOf(Entity e)
 	{
-		return this.x < e.x && this.y + this.height > e.y + 1 && this.y < e.y + e.height - 1;
+		double deltaX = (double)(this.cx - e.cx);
+		double deltaY = (double)(this.cy - e.cy);
+		double hypothenus = Math.sqrt(deltaX*deltaX + deltaY*deltaY);
+		double angle = Math.acos(deltaX / hypothenus);
+		
+		//System.out.println(this.getUid()+".onLeftOf("+e.getUid()+"):\ndeltaX = " + deltaX + "\ndeltaY = " + deltaY + "\nAngle = " + angle+"\n---------------\n");
+		
+		return angle > Math.PI * 0.75;
+		//return this.x < e.x && this.y + this.height > e.y + 1 && this.y < e.y + e.height - 1;
 	}
 	
 	public boolean onRightOf(Entity e)
 	{
-		return this.x > e.x && this.y + this.height > e.y + 1 && this.y < e.y + e.height - 1;
+		//return this.x > e.x && this.y + this.height > e.y + 1 && this.y < e.y + e.height - 1;
+		//return false;
+		double deltaX = (double)(this.cx - e.cx);
+		double deltaY = (double)(this.cy - e.cy);
+		double hypothenus = Math.sqrt(deltaX*deltaX + deltaY*deltaY);
+		double angle = Math.acos(deltaX / hypothenus);
+		return angle < Math.PI*0.25;
 	}
 	
 	public boolean onTopOf(Entity e)
 	{
-		return this.y < e.y && this.x + this.width >= e.x && this.x <= e.x + e.width;
+		//return this.y < e.y && this.x + this.width >= e.x && this.x <= e.x + e.width;
+		//return false;
+		double deltaX = (double)(this.cx - e.cx);
+		double deltaY = (double)(this.cy - e.cy);
+		double hypothenus = Math.sqrt(deltaX*deltaX + deltaY*deltaY);
+		double angle = Math.acos(deltaX / hypothenus);
+		return angle >= Math.PI*0.25 && angle <= Math.PI * 0.75 && deltaY <= 0;
 	}
 	
 	public boolean onBottomOf(Entity e)
 	{
-		return this.y >= e.y + e.height && this.x + this.width >= e.x && this.x <= e.x + e.width;
+		//return this.y >= e.y + e.height && this.x + this.width >= e.x && this.x <= e.x + e.width;
+		double deltaX = (double)(this.cx - e.cx);
+		double deltaY = (double)(this.cy - e.cy);
+		double hypothenus = Math.sqrt(deltaX*deltaX + deltaY*deltaY);
+		double angle = Math.acos(deltaX / hypothenus);
+		return angle >= Math.PI*0.25 && angle <= Math.PI * 0.75 && deltaY >= 0;
 	}
 	
 	public boolean canPassOver(Entity e)

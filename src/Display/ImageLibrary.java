@@ -13,9 +13,23 @@ public class ImageLibrary {
 	{
 		library = new HashMap<String, ImageIcon>();
 		
+		// Load still images
 		ImageIcon img = new ImageIcon("assets/texture/brickwall2.jpg");
 		
 		library.put("brickwall1", img);
+		
+		// Load sprites
+		
+		for(int i = 0 ; i <= 20 ; i++ )
+		{
+			String s;
+			if(i < 10)
+				s = "0"+String.valueOf(i);
+			else
+				s = String.valueOf(i);
+			img = new ImageIcon("assets/animation/character/sniper/run_left_000"+s+".png");
+			library.put("run_left_000"+s, img);
+		}
 		isLoaded = true;
 	}
 	

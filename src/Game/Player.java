@@ -1,8 +1,13 @@
 package Game;
 
+import java.awt.Graphics2D;
+
+import Display.Sprite;
 import Physic.Entity;
 
 public class Player extends Entity {
+	
+	private Sprite run_left;
 	
 	public Player()
 	{
@@ -12,6 +17,13 @@ public class Player extends Entity {
 		this.setY(30);
 		this.setStatic(false);
 		this.setMaxDx(30);
+		
+		this.run_left = new Sprite("run_left_000", 21);
+	}
+	
+	public void render(Graphics2D g2d)
+	{
+		g2d.drawImage(run_left.getImage(), x, y, null);
 	}
 	
 	public void moveLeft()

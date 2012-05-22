@@ -40,6 +40,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 		
 		player = new Player();
 		this.addEntity(new Block(400, 100, 100, 100));
+		
 		this.addEntity(new Block(400, 500, 200, 100));
 		this.addEntity(new Block(400, 300, 400, 100));
 		this.addEntity(new Block(20, 400, 800, 100));

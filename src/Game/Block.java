@@ -2,7 +2,10 @@ package Game;
 
 import java.awt.Graphics2D;
 
+import javax.swing.ImageIcon;
+
 import Display.GameColor;
+import Display.ImageLibrary;
 import Physic.Entity;
 
 public class Block extends Entity {
@@ -21,5 +24,8 @@ public class Block extends Entity {
 		drawUid(g2d);
 		g2d.setColor(GameColor.red);
 		g2d.drawRect(x, y, width, height);
+		
+		ImageIcon texture = ImageLibrary.getImage("brickwall1");
+		drawTexture(texture.getImage(), g2d);
 	}
 }

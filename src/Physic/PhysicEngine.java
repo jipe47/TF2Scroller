@@ -32,7 +32,6 @@ public class PhysicEngine {
 		Entity f;
 		
 		boolean bottomCollision;
-		int x, y;
 		for(int i = 0 ; i < entities.size(); i++)
 		{
 			e = entities.get(i);
@@ -48,7 +47,7 @@ public class PhysicEngine {
 				f = entities.get(j);
 				if(e.collide(f))
 				{
-					Debug.echo(String.valueOf(e.getUid()) + " collides with " + String.valueOf(f.getUid()));
+					//Debug.echo(String.valueOf(e.getUid()) + " collides with " + String.valueOf(f.getUid()));
 						
 					boolean oT = e.onTopOf(f);
 					boolean oB = e.onBottomOf(f);
@@ -61,19 +60,19 @@ public class PhysicEngine {
 					
 					if(oT)
 					{
-						Debug.echo("onTop");
+						//Debug.echo("onTop");
 						e.setY(f.getY() - e.getHeight());
 						e.setDy(0);
 						e.setDdy(0);
 					}
 					else if(oB)
 					{
-						Debug.echo("onBottom");
+						//Debug.echo("onBottom");
 						e.setY(f.getY() + f.getHeight());
 					}
 					else if(oL)
 					{
-						Debug.echo("onLeft");
+						//Debug.echo("onLeft");
 						e.setX(f.getX() - e.getWidth());
 						e.setDx(0);
 						e.setDdx(0);
@@ -81,7 +80,7 @@ public class PhysicEngine {
 					else if(oR)
 					{
 						//ce.setX(cf.getX() + ce.gethWidth());
-						Debug.echo("onRight");
+						//Debug.echo("onRight");
 						e.setX(f.getX() + f.getWidth());
 						e.setDx(0);
 						e.setDdx(0);
@@ -109,7 +108,7 @@ public class PhysicEngine {
 		if(e.isStatic())
 			return;
 		
-		e.setDx(e.getDx() + DT * e.getDdx());
+		e.setDx(Math.min(e.getDx() + DT * e.getDdx(), e.getMaxDx()));
 		e.setDy(e.getDy() + DT * e.getDdy());
 		
 		e.setX(e.getX() + DT *  e.getDx() * e.getDirection());

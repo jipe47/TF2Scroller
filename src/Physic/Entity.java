@@ -3,15 +3,16 @@ package Physic;
 import java.awt.Graphics2D;
 
 import Display.GameColor;
-import Game.Debug;
 
 public abstract class Entity {
-	
+		
 	public static int uid_counter = 0;
 	
 	public static final int LEFT = -1;
 	public static final int RIGHT = 1;
 	
+	protected int maxDx = 9999;
+
 	protected int x, y, dx, dy, ddx, ddy, cx, cy;
 	protected int direction;
 	protected int width, height, hWidth, hHeight;
@@ -69,6 +70,14 @@ public abstract class Entity {
 
 	public void setDx(int dx) {
 		this.dx = dx;
+	}
+
+	public int getMaxDx() {
+		return maxDx;
+	}
+
+	public void setMaxDx(int maxDx) {
+		this.maxDx = maxDx;
 	}
 
 	public int getDy() {
@@ -172,47 +181,22 @@ public abstract class Entity {
 	
 	public boolean onLeftOf(Entity e)
 	{
-		double deltaX = (double)(this.cx - e.cx);
-		double deltaY = (double)(this.cy - e.cy);
-		double hypothenus = Math.sqrt(deltaX*deltaX + deltaY*deltaY);
-		double angle = Math.acos(deltaX / hypothenus);
-		
-		//System.out.println(this.getUid()+".onLeftOf("+e.getUid()+"):\ndeltaX = " + deltaX + "\ndeltaY = " + deltaY + "\nAngle = " + angle+"\n---------------\n");
-		
-		return angle > Math.PI * 0.75;
-		//return this.x < e.x && this.y + this.height > e.y + 1 && this.y < e.y + e.height - 1;
+		return this.x < e.x && this.y + this.height > e.y + 1 && this.y < e.y + e.height - 1;
 	}
 	
 	public boolean onRightOf(Entity e)
 	{
-		//return this.x > e.x && this.y + this.height > e.y + 1 && this.y < e.y + e.height - 1;
-		//return false;
-		double deltaX = (double)(this.cx - e.cx);
-		double deltaY = (double)(this.cy - e.cy);
-		double hypothenus = Math.sqrt(deltaX*deltaX + deltaY*deltaY);
-		double angle = Math.acos(deltaX / hypothenus);
-		return angle < Math.PI*0.25;
+		return this.x > e.x && this.y + this.height > e.y + 1 && this.y < e.y + e.height - 1;
 	}
 	
 	public boolean onTopOf(Entity e)
 	{
-		//return this.y < e.y && this.x + this.width >= e.x && this.x <= e.x + e.width;
-		//return false;
-		double deltaX = (double)(this.cx - e.cx);
-		double deltaY = (double)(this.cy - e.cy);
-		double hypothenus = Math.sqrt(deltaX*deltaX + deltaY*deltaY);
-		double angle = Math.acos(deltaX / hypothenus);
-		return angle >= Math.PI*0.25 && angle <= Math.PI * 0.75 && deltaY <= 0;
+		return this.y < e.y && this.x + this.width >= e.x && this.x <= e.x + e.width;
 	}
 	
 	public boolean onBottomOf(Entity e)
 	{
-		//return this.y >= e.y + e.height && this.x + this.width >= e.x && this.x <= e.x + e.width;
-		double deltaX = (double)(this.cx - e.cx);
-		double deltaY = (double)(this.cy - e.cy);
-		double hypothenus = Math.sqrt(deltaX*deltaX + deltaY*deltaY);
-		double angle = Math.acos(deltaX / hypothenus);
-		return angle >= Math.PI*0.25 && angle <= Math.PI * 0.75 && deltaY >= 0;
+		return this.y >= e.y + e.height && this.x + this.width >= e.x && this.x <= e.x + e.width;
 	}
 	
 	public boolean canPassOver(Entity e)

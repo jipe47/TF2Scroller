@@ -1,6 +1,5 @@
 package Game;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -27,6 +26,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 	private int frame;
 	
 	private Player player;
+	private boolean player_jump = false;
 	
 	public Game()
 	{
@@ -61,6 +61,8 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
 	// Refresh
 	public void actionPerformed(ActionEvent arg0) {
+		if(player_jump)
+			player.moveUp();
 		physicEngine.update();
 		this.repaint();
 		//Debug.echo("Frame " + frame);
@@ -78,13 +80,14 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 				player.moveRight();
 				break;
 			case KeyEvent.VK_UP:
-				player.moveUp();
+				//player.moveUp();
+				this.player_jump = true;
 				break;
 			case KeyEvent.VK_DOWN:
 				player.moveDown();
 				break;
 			default:
-				Debug.echo("Unsupported key");
+			//	Debug.echo("Unsupported key");
 		}
 	}
 
@@ -92,10 +95,17 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 		switch(arg0.getKeyCode())
 		{
 			case KeyEvent.VK_LEFT:
+				player.stopLeft();
+				break;
 			case KeyEvent.VK_RIGHT:
+				player.stopRight();
+				break;
 			case KeyEvent.VK_UP:
+				//player.stopUp();
+				this.player_jump = false;
+				break;
 			case KeyEvent.VK_DOWN:
-				player.stop();
+				player.stopDown();
 				break;
 		}
 	}

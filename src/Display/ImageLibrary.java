@@ -29,6 +29,35 @@ public class ImageLibrary {
 				s = String.valueOf(i);
 			img = new ImageIcon("assets/animation/character/sniper/run_left_000"+s+".png");
 			library.put("run_left_000"+s, img);
+			
+			img = new ImageIcon("assets/animation/character/sniper/run_right_000"+s+".png");
+			library.put("run_right_000"+s, img);
+			
+			img = new ImageIcon("assets/animation/character/sniper/run_left_shoot_000"+s+".png");
+			library.put("run_left_shoot_000"+s, img);
+			
+			img = new ImageIcon("assets/animation/character/sniper/run_right_shoot_000"+s+".png");
+			library.put("run_right_shoot_000"+s, img);
+		}
+		
+		for(int i = 0 ; i <= 36 ; i++ )
+		{
+			String s;
+			if(i < 10)
+				s = "0"+String.valueOf(i);
+			else
+				s = String.valueOf(i);
+			img = new ImageIcon("assets/animation/character/sniper/stand_left_000"+s+".png");
+			library.put("stand_left_000"+s, img);
+			
+			img = new ImageIcon("assets/animation/character/sniper/stand_right_000"+s+".png");
+			library.put("stand_right_000"+s, img);
+			
+			img = new ImageIcon("assets/animation/character/sniper/stand_left_shoot_000"+s+".png");
+			library.put("stand_left_shoot_000"+s, img);
+			
+			img = new ImageIcon("assets/animation/character/sniper/stand_right_shoot_000"+s+".png");
+			library.put("stand_right_shoot_000"+s, img);
 		}
 		isLoaded = true;
 	}

@@ -23,9 +23,11 @@ public class Sprite {
 		int size = 1;
 		while(nbr >= 10)
 		{
+			//Debug.echo("Iter : " + String.valueOf(nbr));
 			size++;
 			nbr = nbr / 10;
 		}
+		//Debug.echo("Ok");
 		return size;
 	}
 	

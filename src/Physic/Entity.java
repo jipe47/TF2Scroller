@@ -169,23 +169,23 @@ public abstract class Entity {
 		this.direction = direction;
 	}
 	
-	public void render(Graphics2D g2d)
+	public void render(Graphics2D g2d, int offset_x, int offset_y)
 	{
 		// Drawing collision rectangle and its center
-		drawUid(g2d);
+		drawUid(g2d, offset_x, offset_y);
 		g2d.setColor(GameColor.blue);
-		g2d.fillOval(cx, cy, 5, 5);
-		g2d.drawRect(x, y, width, height);
+		g2d.fillOval(cx + offset_x, cy + offset_y, 5, 5);
+		g2d.drawRect(x + offset_x, y + offset_y, width, height);
 		
 		g2d.setColor(GameColor.red);
 		
 		// Drawing speed vector
-		g2d.drawLine(cx, cy, cx+dx*direction, cy+dy*direction);
+		g2d.drawLine(cx + offset_x, cy + offset_y, cx+dx*direction + offset_x, cy+dy*direction + offset_y);
 	}
-	protected void drawUid(Graphics2D g2d)
+	protected void drawUid(Graphics2D g2d, int offset_x, int offset_y)
 	{
 		g2d.setColor(GameColor.red);
-		g2d.drawString(String.valueOf(getUid()) + "("+String.valueOf(x)+","+String.valueOf(y)+")", x, y);
+		g2d.drawString(String.valueOf(getUid()) + "("+String.valueOf(x)+","+String.valueOf(y)+")", x + offset_x, y + offset_y);
 	}
 	
 	public boolean collide(Entity e)
@@ -219,19 +219,19 @@ public abstract class Entity {
 		return !(e.getY() < y) && height - (y - e.getY()) < (0.1 * height);
 	}
 	
-	public void drawCollision(Entity e, Graphics2D g2d)
+	public void drawCollision(Entity e, Graphics2D g2d, int offset_x, int offset_y)
 	{
 		if(!this.collide(e))
 			return;
 		
 		if(onLeftOf(e))
-			drawCross(x + width, cy, g2d);
+			drawCross(x + width + offset_x, cy+ offset_y, g2d);
 		if(onRightOf(e))
-			drawCross(x, cy, g2d);
+			drawCross(x+ offset_x, cy+ offset_y, g2d);
 		if(onTopOf(e))
-			drawCross(cx, y + height, g2d);
+			drawCross(cx + offset_x, y + height + offset_y, g2d);
 		if(onBottomOf(e))
-			drawCross(cx, y, g2d);
+			drawCross(cx + offset_x, y + offset_y, g2d);
 	}
 	
 	private void drawCross(int x, int y, Graphics2D g2d)
@@ -242,7 +242,7 @@ public abstract class Entity {
 	}
 	
 	// From http://www.developpez.net/forums/d821363/java/interfaces-graphiques-java/repeter-image-fond/
-	protected void drawTexture(Image img, Graphics2D g2d)
+	protected void drawTexture(Image img, Graphics2D g2d, int offset_x, int offset_y)
 	{
 		BufferedImage bufferedImage = toBufferedImage(img);
 		TexturePaint texture = new TexturePaint(bufferedImage,new Rectangle(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight()));
@@ -250,7 +250,7 @@ public abstract class Entity {
 		Composite c = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.f);
 		g2d.setComposite(c);
 		g2d.setPaint(texture);
-		g2d.fillRect(x, y, getWidth(), getHeight() );
+		g2d.fillRect(x + offset_x, y + offset_y, getWidth(), getHeight() );
 		 
 		c = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.f);
 		g2d.setComposite(c);

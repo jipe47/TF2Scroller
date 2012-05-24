@@ -15,8 +15,8 @@ public class Player extends Entity {
 	{
 		this.setWidth(73);
 		this.setHeight(84);
-		this.setX(400);
-		this.setY(-200);
+		this.setX(100);
+		this.setY(100);
 		this.setStatic(false);
 		this.setMaxDx(10);
 		
@@ -34,15 +34,15 @@ public class Player extends Entity {
 		//this.run_left = new Sprite("run_left_000", 21);
 	}
 	
-	public void render(Graphics2D g2d)
+	public void render(Graphics2D g2d, int offset_x, int offset_y)
 	{
 		String move = dx > 0 ? "run_" : "stand_";
 		move += this.getDirection() == Player.LEFT ? "left" : "right";
 		// If shoot
 		// move += "_shoot";
 		Image img = animations.get(move).getImage();
-		g2d.drawImage(img, x, y, x+width, y+height, 0, 0, img.getWidth(null), img.getHeight(null), null);
-		super.render(g2d);
+		g2d.drawImage(img, x + offset_x, y + offset_y, x + width + offset_x, y + height + offset_y, 0, 0, img.getWidth(null),  img.getHeight(null), null);
+		super.render(g2d, offset_x, offset_y);
 	}
 	
 	public void moveLeft()

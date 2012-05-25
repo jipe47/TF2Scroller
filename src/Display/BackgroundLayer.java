@@ -2,15 +2,50 @@ package Display;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
+
+import Game.Debug;
 
 public abstract class BackgroundLayer {
-	private int x, y, dx, dy;
-	private Color backgroundColor;
+	private int x = 0, y = 0;
+	private double dx = 1, dy = 1;
+	private Color backgroundColor = null;
+	private Image texture = null;
 	private boolean repeatX, repeatY;
 	
-	public void render(Graphics2D g2d)
+	public void render(Graphics2D g2d, int width, int height, int offset_x, int offset_y)
 	{
+		if(backgroundColor != null)
+		{
+			g2d.setColor(backgroundColor);
+			g2d.fillRect(0, 0, width, height);
+		}
 		
+		if(texture != null)
+		{
+			int decalX = (int)(offset_x * dx);
+			int decalY = (int)(offset_y * dy);
+			int b_x = x + decalX;
+			int b_y = y + decalY;
+			g2d.setColor(GameColor.black);
+			
+			g2d.drawImage(texture, b_x, b_y, null);
+			
+			if(this.repeatX)
+			{
+				int r_x = x + texture.getWidth(null);
+				Debug.echo("Starting background repetition\nx = "+String.valueOf(x)+"\n==========");
+				int i = 0;
+				while(r_x < width)
+				{
+					g2d.drawImage(texture, r_x + decalX, b_y, null);
+					r_x += texture.getWidth(null);
+					Debug.echo("It " + String.valueOf(i) + " : r_x = " + r_x);
+					i++;
+				}
+				Debug.echo("===================\nEnd of background repetition");
+			}
+		}
 	}
 
 	public int getX() {
@@ -29,19 +64,19 @@ public abstract class BackgroundLayer {
 		this.y = y;
 	}
 
-	public int getDx() {
+	public double getDx() {
 		return dx;
 	}
 
-	public void setDx(int dx) {
+	public void setDx(double dx) {
 		this.dx = dx;
 	}
 
-	public int getDy() {
+	public double getDy() {
 		return dy;
 	}
 
-	public void setDy(int dy) {
+	public void setDy(double dy) {
 		this.dy = dy;
 	}
 
@@ -67,5 +102,13 @@ public abstract class BackgroundLayer {
 
 	public void setRepeatY(boolean repeatY) {
 		this.repeatY = repeatY;
+	}
+
+	public Image getTexture() {
+		return texture;
+	}
+
+	public void setTexture(Image texture) {
+		this.texture = texture;
 	}
 }

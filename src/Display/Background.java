@@ -12,10 +12,10 @@ public class Background {
 		layers = new ArrayList<BackgroundLayer>();
 	}
 	
-	public void render(Graphics2D g2d)
+	public void render(Graphics2D g2d, int width, int height, int offset_x, int offset_y)
 	{
 		for(int i = 0 ; i < layers.size() ; i++)
-			layers.get(i).render(g2d);
+			layers.get(i).render(g2d, width, height, offset_x, offset_y);
 	}
 	
 	public void addLayer(BackgroundLayer l)

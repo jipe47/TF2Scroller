@@ -18,6 +18,12 @@ public class ImageLibrary {
 		
 		library.put("brickwall1", img);
 		
+		img = new ImageIcon("assets/texture/background_sky.png");
+		library.put("background_sky", img);
+		
+		img = new ImageIcon("assets/texture/background_mountain.png");
+		library.put("background_mountain", img);
+		
 		// Load sprites
 		
 		for(int i = 0 ; i <= 20 ; i++ )

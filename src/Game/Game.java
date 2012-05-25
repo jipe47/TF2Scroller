@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import Display.Background;
+import Display.*;
 import Display.GameColor;
 import Physic.Entity;
 import Physic.PhysicEngine;
@@ -48,10 +48,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 		entities = new ArrayList<Entity>();
 		
 		background = new Background();
-		/*
-		background.addLayer(new Sky());
-		background.addLayer(new Mountains());
-		 */
+		
+		background.addLayer(new BackgroundSky());
+		background.addLayer(new BackgroundMountain());
+		 
 		
 		timer = new Timer(GAMESPEED, this);
 		timer.start();
@@ -59,7 +59,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 		player = new Player();
 		
 		this.addEntity(new Block(400, 500, 200, 100));
-		this.addEntity(new Block(400, 300, 400, 100));
+		this.addEntity(new Block(400, 300, 3000, 100));
 		this.addEntity(new Block(-200, 400, 800, 100));
 		this.addEntity(new Block(-300, 500, 800, 100));
 		this.addEntity(new Block(-400, 600, 800, 100));
@@ -164,6 +164,8 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 		// Draw background
 		g2d.setColor(GameColor.white);
 		g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+		
+		background.render(g2d, this.getWidth(), this.getHeight(), offset_x, offset_y);
 		
 		// Draw entities
 		for(int i = 0 ; i < entities.size() ; i++)

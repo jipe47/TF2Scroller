@@ -29,21 +29,35 @@ public abstract class BackgroundLayer {
 			int b_y = y + decalY;
 			g2d.setColor(GameColor.black);
 			
-			g2d.drawImage(texture, b_x, b_y, null);
-			
-			if(this.repeatX)
+			if(!this.repeatX && !this.repeatY)
+				g2d.drawImage(texture, b_x, b_y, null);
+			else if(this.repeatX && !this.repeatY)
 			{
-				int r_x = x + texture.getWidth(null);
-				Debug.echo("Starting background repetition\nx = "+String.valueOf(x)+"\n==========");
+				int sub_width = (decalX + texture.getWidth(null)) % texture.getWidth(null);
+				if(sub_width < 0)
+					sub_width += texture.getWidth(null);
+				int sub_height = texture.getHeight(null);
+				
+				int sub_x = texture.getWidth(null) - sub_width;
+				int sub_y = 0;
+				int r_x = 0;
 				int i = 0;
 				while(r_x < width)
 				{
-					g2d.drawImage(texture, r_x + decalX, b_y, null);
-					r_x += texture.getWidth(null);
-					Debug.echo("It " + String.valueOf(i) + " : r_x = " + r_x);
+					
+					Debug.echo("Iter " + String.valueOf(i) + "\nsub_x = " + String.valueOf(sub_x)+"\nsub_width = "+String.valueOf(sub_width));
+					
+					g2d.drawImage(texture, r_x, y, r_x + sub_width, y + sub_height, sub_x , sub_y, sub_x + sub_width, sub_y + sub_height, null);
+					
+					r_x += sub_width;
+					sub_width = texture.getWidth(null);
+					sub_x = 0;
+					
 					i++;
 				}
-				Debug.echo("===================\nEnd of background repetition");
+				
+				Debug.echo("================");
+				
 			}
 		}
 	}

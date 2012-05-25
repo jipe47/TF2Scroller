@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import Display.Background;
 import Display.GameColor;
 import Physic.Entity;
 import Physic.PhysicEngine;
@@ -20,8 +21,8 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 	
 	// Game static parameters
 	public static final int GAMESPEED = 30;
-	public static final double GAMEAREA_X = 0.8;
-	public static final double GAMEAREA_Y = 0.6;
+	public static final double GAMEAREA_X = 0.4;
+	public static final double GAMEAREA_Y = 0.4;
 	
 	// Game dynamic parameters
 	private int offset_x = 0;
@@ -32,6 +33,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 	// Usefull stuff
 	private ArrayList<Entity> entities;
 	private PhysicEngine physicEngine;
+	private Background background;
 	private Timer timer;
 	private int frame;
 	
@@ -44,6 +46,12 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 		
 		physicEngine = new PhysicEngine();
 		entities = new ArrayList<Entity>();
+		
+		background = new Background();
+		/*
+		background.addLayer(new Sky());
+		background.addLayer(new Mountains());
+		 */
 		
 		timer = new Timer(GAMESPEED, this);
 		timer.start();
@@ -79,7 +87,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 		
 		physicEngine.update();
 		
-		if(game_width == 0)
+		if(game_width == 0 && this.getWidth() > 0 && this.getHeight() > 0)
 		{
 			game_width = (int) (this.getWidth() * GAMEAREA_X);
 			game_height = (int) (this.getHeight() * GAMEAREA_Y);

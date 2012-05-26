@@ -25,7 +25,6 @@ public class ImageLibrary {
 		library.put("background_mountain", img);
 		
 		// Load sprites
-		
 		for(int i = 0 ; i <= 20 ; i++ )
 		{
 			String s;

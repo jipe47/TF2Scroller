@@ -245,18 +245,6 @@ public abstract class Entity {
 	// From http://www.developpez.net/forums/d821363/java/interfaces-graphiques-java/repeter-image-fond/
 	protected void drawTexture(Image img, Graphics2D g2d, int offset_x, int offset_y)
 	{
-		/*BufferedImage bufferedImage = toBufferedImage(img);
-		TexturePaint texture = new TexturePaint(bufferedImage,new Rectangle(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight()));
-		
-		Composite c = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.f);
-		g2d.setComposite(c);
-		g2d.setPaint(texture);
-		g2d.fillRect(x + offset_x, y + offset_y, getWidth(), getHeight() );
-		 
-		c = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.f);
-		g2d.setComposite(c);*/
-		
-		
 		Color colors[] = {GameColor.blue, GameColor.green, GameColor.red, GameColor.black, GameColor.white};
 		int nbr_color = 5;
 		
@@ -297,56 +285,5 @@ public abstract class Entity {
 		
 		g2d.setColor(GameColor.black);
 		g2d.drawRect(x + offset_x, y + offset_y, width, height);
-	}
-	
-	// From http://www.exampledepot.com/egs/java.awt.image/image2buf.html
-	private static BufferedImage toBufferedImage(Image image) {
-	    if (image instanceof BufferedImage) {
-	        return (BufferedImage)image;
-	    }
-
-	    // This code ensures that all the pixels in the image are loaded
-	  //  image = new ImageIcon(image).getImage();
-
-	    // Determine if the image has transparent pixels; for this method's
-	    // implementation, see Determining If an Image Has Transparent Pixels
-	    boolean hasAlpha = true;
-
-	    // Create a buffered image with a format that's compatible with the screen
-	    BufferedImage bimage = null;
-	    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-	    try {
-	        // Determine the type of transparency of the new buffered image
-	        int transparency = Transparency.OPAQUE;
-	        if (hasAlpha) {
-	            transparency = Transparency.BITMASK;
-	        }
-
-	        // Create the buffered image
-	        GraphicsDevice gs = ge.getDefaultScreenDevice();
-	        GraphicsConfiguration gc = gs.getDefaultConfiguration();
-	        bimage = gc.createCompatibleImage(
-	            image.getWidth(null), image.getHeight(null), transparency);
-	    } catch (HeadlessException e) {
-	        // The system does not have a screen
-	    }
-
-	    if (bimage == null) {
-	        // Create a buffered image using the default color model
-	        int type = BufferedImage.TYPE_INT_RGB;
-	        if (hasAlpha) {
-	            type = BufferedImage.TYPE_INT_ARGB;
-	        }
-	        bimage = new BufferedImage(image.getWidth(null), image.getHeight(null), type);
-	    }
-
-	    // Copy image to buffered image
-	    Graphics g = bimage.createGraphics();
-
-	    // Paint the image onto the buffered image
-	    g.drawImage(image, 0, 0, null);
-	    g.dispose();
-
-	    return bimage;
 	}
 }

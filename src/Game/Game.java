@@ -12,9 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import Display.*;
-import Display.GameColor;
 import Physic.Entity;
 import Physic.PhysicEngine;
+import Sound.SoundLibrary;
 
 @SuppressWarnings("serial")
 public class Game extends JPanel implements ActionListener, KeyListener {
@@ -103,6 +103,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 			bullet.setY(player.getY() + 10);
 			bullet.setDirection(player.getDirection());
 			projectiles.add(bullet);
+			SoundLibrary.playSound("smg_shoot");
 		}
 		
 		physicEngine.update();

@@ -10,6 +10,7 @@ import Physic.Entity;
 public class Player extends Entity {
 	
 	private HashMap<String, Sprite> animations;
+	private boolean shoot;
 	
 	public Player()
 	{
@@ -19,8 +20,10 @@ public class Player extends Entity {
 		this.setY(100);
 		this.setStatic(false);
 		this.setMaxDx(10);
+		this.setShoot(false);
+		this.setDirection(this.RIGHT);
 		
-		// Loading movment animation
+		// Loading movement animation
 		animations = new HashMap<String, Sprite>();
 		animations.put("run_left", new Sprite("run_left_000", 21));
 		animations.put("run_right", new Sprite("run_right_000", 21));
@@ -34,12 +37,21 @@ public class Player extends Entity {
 		//this.run_left = new Sprite("run_left_000", 21);
 	}
 	
+	public boolean isShoot() {
+		return shoot;
+	}
+
+	public void setShoot(boolean shoot) {
+		this.shoot = shoot;
+	}
+
 	public void render(Graphics2D g2d, int offset_x, int offset_y)
 	{
 		String move = dx > 0 ? "run_" : "stand_";
 		move += this.getDirection() == Player.LEFT ? "left" : "right";
 		// If shoot
-		// move += "_shoot";
+		if(this.isShoot())
+			move += "_shoot";
 		Image img = animations.get(move).getImage();
 		g2d.drawImage(img, x + offset_x, y + offset_y, x + width + offset_x, y + height + offset_y, 0, 0, img.getWidth(null),  img.getHeight(null), null);
 		super.render(g2d, offset_x, offset_y);

@@ -30,8 +30,14 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 	
 	private int game_x = 0, game_y = 0, game_width = 0, game_height = 0;
 	
+	// Shooting variable
+	private boolean player_shoot;
+	private int player_shoot_delay = 100;
+	private int player_shoot_counter = 0;
+	
 	// Usefull stuff
 	private ArrayList<Entity> entities;
+	private ArrayList<Projectile> projectiles;
 	private PhysicEngine physicEngine;
 	private Background background;
 	private Timer timer;
@@ -46,6 +52,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 		
 		physicEngine = new PhysicEngine();
 		entities = new ArrayList<Entity>();
+		projectiles = new ArrayList<Projectile>();
 		
 		background = new Background();
 		
@@ -85,6 +92,19 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 		if(player_jump)
 			player.moveUp();
 		
+		if(player_shoot_counter > 0)
+			player_shoot_counter -= GAMESPEED;
+		
+		if(player_shoot && player_shoot_counter <= 0)
+		{
+			player_shoot_counter = player_shoot_delay;
+			Projectile bullet = new Bullet();
+			bullet.setX(player.getX() + 50);
+			bullet.setY(player.getY() + 10);
+			bullet.setDirection(player.getDirection());
+			projectiles.add(bullet);
+		}
+		
 		physicEngine.update();
 		
 		if(game_width == 0 && this.getWidth() > 0 && this.getHeight() > 0)
@@ -106,7 +126,16 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 		else if(player.getY() + player.getHeight() + offset_y > game_y + game_height)
 			offset_y -= (player.getY() + player.getHeight() + offset_y - game_y - game_height);
 		
-		
+		int plimitR = this.getWidth() - offset_x;
+		int plimitL = 0 - offset_x;
+		for(int p = 0 ; p < projectiles.size() ; p++)
+		{
+			projectiles.get(p).update();
+			int xp = projectiles.get(p).getX(); 
+			if(xp > plimitR || xp < plimitL)
+				projectiles.remove(p);
+		}
+			
 			
 		this.repaint();
 		//Debug.echo("Frame " + frame);
@@ -114,6 +143,11 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void keyPressed(KeyEvent arg0) {
+		
+		if(arg0.isControlDown())
+			this.startShoot();
+		else
+			this.stopShoot();
 		
 		switch(arg0.getKeyCode())
 		{
@@ -130,6 +164,9 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 			case KeyEvent.VK_DOWN:
 				player.moveDown();
 				break;
+			/*case KeyEvent.VK_CONTROL:
+				this.startShoot();
+				break;*/
 			default:
 			//	Debug.echo("Unsupported key");
 		}
@@ -151,10 +188,31 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 			case KeyEvent.VK_DOWN:
 				player.stopDown();
 				break;
+			/*case KeyEvent.VK_CONTROL:
+				this.stopShoot();
+				break;*/
 		}
+		
+
+		if(arg0.isControlDown())
+			this.startShoot();
+		else
+			this.stopShoot();
 	}
 
 	public void keyTyped(KeyEvent arg0) {
+	}
+	
+	private void startShoot()
+	{
+		player_shoot = true;
+		this.player.setShoot(true);
+	}
+	
+	private void stopShoot()
+	{
+		player_shoot = false;
+		this.player.setShoot(false);
 	}
 	
 	
@@ -186,6 +244,13 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 		// Draw game area
 		g2d.drawRect(game_x, game_y, game_width, game_height);
 		
+		// Draw projectiles
+		Projectile p;
+		for(int i = 0 ; i < projectiles.size() ; i++)
+		{
+			p = projectiles.get(i);
+			g2d.drawRect(p.getX() + offset_x, p.getY() + offset_y, p.getWidth(), p.getHeight());
+		}
 		// Draw debug info
 		g2d.drawString("offset_x = " +String.valueOf(offset_x), 5, 20);
 		g2d.drawString("offset_y = " +String.valueOf(offset_y), 5, 40);

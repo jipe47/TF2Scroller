@@ -31,34 +31,56 @@ public abstract class BackgroundLayer {
 			
 			if(!this.repeatX && !this.repeatY)
 				g2d.drawImage(texture, b_x, b_y, null);
-			else if(this.repeatX && !this.repeatY)
+			else/* if(this.repeatX && !this.repeatY)*/
 			{
 				int sub_width = (decalX + texture.getWidth(null)) % texture.getWidth(null);
 				if(sub_width < 0)
 					sub_width += texture.getWidth(null);
-				int sub_height = texture.getHeight(null);
 				
+				int init_sub_height = (decalY + texture.getHeight(null))%texture.getHeight(null);
+				if(init_sub_height < 0)
+					init_sub_height += texture.getHeight(null);
+				
+				int sub_height;
 				int sub_x = texture.getWidth(null) - sub_width;
-				int sub_y = 0;
-				int r_x = 0;
+				int sub_y;
+				int r_x = 0, r_y = 0;
 				int i = 0;
+				
+				if(!this.repeatX)
+					width = texture.getWidth(null);
+				if(!this.repeatY)
+					height = texture.getHeight(null);
 				while(r_x < width)
 				{
-					
-					Debug.echo("Iter " + String.valueOf(i) + "\nsub_x = " + String.valueOf(sub_x)+"\nsub_width = "+String.valueOf(sub_width));
-					
-					g2d.drawImage(texture, r_x, y, r_x + sub_width, y + sub_height, sub_x , sub_y, sub_x + sub_width, sub_y + sub_height, null);
+					//Debug.echo("Iter " + String.valueOf(i) + "\nsub_x = " + String.valueOf(sub_x)+"\nsub_width = "+String.valueOf(sub_width));
+					r_y = 0;
+					sub_height = init_sub_height;
+					sub_y = texture.getHeight(null) - init_sub_height;
+					while(r_y < height)
+					{
+						g2d.drawImage(texture, r_x, r_y, r_x + sub_width, r_y + sub_height, sub_x , sub_y, sub_x + sub_width, sub_y + sub_height, null);
+						
+						r_y += sub_height;
+						sub_height = texture.getHeight(null);
+						sub_y = 0;
+						
+					}
 					
 					r_x += sub_width;
 					sub_width = texture.getWidth(null);
 					sub_x = 0;
-					
-					i++;
 				}
-				
-				Debug.echo("================");
+			//	Debug.echo("================");
+			}
+			/*else if(this.repeatX && this.repeatY)
+			{
 				
 			}
+			else if(this.repeatX && this.repeatY)
+			{
+				
+			}*/
 		}
 	}
 

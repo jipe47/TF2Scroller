@@ -15,6 +15,7 @@ import java.awt.Rectangle;
 import java.awt.TexturePaint;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import Display.GameColor;
 import Game.Debug;
@@ -244,7 +245,7 @@ public abstract class Entity {
 	// From http://www.developpez.net/forums/d821363/java/interfaces-graphiques-java/repeter-image-fond/
 	protected void drawTexture(Image img, Graphics2D g2d, int offset_x, int offset_y)
 	{
-		BufferedImage bufferedImage = toBufferedImage(img);
+		/*BufferedImage bufferedImage = toBufferedImage(img);
 		TexturePaint texture = new TexturePaint(bufferedImage,new Rectangle(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight()));
 		
 		Composite c = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.f);
@@ -253,7 +254,49 @@ public abstract class Entity {
 		g2d.fillRect(x + offset_x, y + offset_y, getWidth(), getHeight() );
 		 
 		c = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.f);
-		g2d.setComposite(c);
+		g2d.setComposite(c);*/
+		
+		
+		Color colors[] = {GameColor.blue, GameColor.green, GameColor.red, GameColor.black, GameColor.white};
+		int nbr_color = 5;
+		
+		//Random r = new Random();
+		//int c = Math.abs(r.nextInt())%nbr_color; // Brain breaker
+		int c = 0;
+		
+		int texture_width = img.getWidth(null);
+		int texture_height = img.getHeight(null);
+		
+		g2d.setColor(GameColor.red);
+		g2d.drawOval(x + offset_x, y + offset_y, 10, 10);
+		g2d.drawOval(x + offset_x + width, y + offset_y + height, 10, 10);
+		
+		int r_x = 0;
+		int r_y = 0;
+		
+		while(r_x < width)
+		{
+			r_y = 0;
+			while(r_y < height)
+			{
+				g2d.setColor(colors[c]);
+				
+				int dest_x = r_x + x + offset_x;
+				int dest_y = r_y + y + offset_y;
+				int dest_width = Math.min(texture_width, width - r_x);
+				int dest_height = Math.min(texture_height, height - r_y);
+				g2d.fillRect(dest_x, dest_y, dest_width, dest_height);
+				g2d.drawImage(img, dest_x, dest_y, dest_x + dest_width, dest_y + dest_height, 0, 0, dest_width, dest_height, null);
+			
+				c = (c + 1) % nbr_color;
+				r_y += texture_height;
+			}
+			
+			r_x += texture_width;
+		}
+		
+		g2d.setColor(GameColor.black);
+		g2d.drawRect(x + offset_x, y + offset_y, width, height);
 	}
 	
 	// From http://www.exampledepot.com/egs/java.awt.image/image2buf.html

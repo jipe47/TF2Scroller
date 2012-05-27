@@ -10,4 +10,5 @@ public class GameColor {
 	public static final Color black = new Color(0,0,0);
 	public static final Color white = new Color(255,255,255);
 	// public static final Color = new Color(,,,);
+	public static final Color orange = new Color(237, 127, 16);
 }

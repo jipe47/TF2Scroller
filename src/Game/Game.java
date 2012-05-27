@@ -46,6 +46,8 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 	private Player player;
 	private boolean player_jump = false;
 	
+	private ArrayList<IAPlayer> enemies;
+	
 	public Game()
 	{
 		frame = 0;
@@ -53,6 +55,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 		physicEngine = new PhysicEngine();
 		entities = new ArrayList<Entity>();
 		projectiles = new ArrayList<Projectile>();
+		enemies = new ArrayList<IAPlayer>();
 		
 		background = new Background();
 		
@@ -63,7 +66,18 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 		timer = new Timer(GAMESPEED, this);
 		timer.start();
 		
-		player = new Player();
+		//player = new Player();
+		player = new Human();
+		
+		IAPlayer enemy = new EnemyHeavy();
+		this.addEntity(enemy);
+		enemies.add(enemy);
+		
+		enemy = new EnemyLight();
+		this.addEntity(enemy);
+		enemies.add(enemy);
+		
+		
 		
 		this.addEntity(new Block(400, 500, 200, 100));
 		this.addEntity(new Block(400, 300, 3000, 100));
@@ -103,7 +117,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 			bullet.setY(player.getY() + 10);
 			bullet.setDirection(player.getDirection());
 			projectiles.add(bullet);
-			SoundLibrary.playSound("smg_shoot");
 		}
 		
 		physicEngine.update();
@@ -127,6 +140,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 		else if(player.getY() + player.getHeight() + offset_y > game_y + game_height)
 			offset_y -= (player.getY() + player.getHeight() + offset_y - game_y - game_height);
 		
+		// Updating projectiles
 		int plimitR = this.getWidth() - offset_x;
 		int plimitL = 0 - offset_x;
 		for(int p = 0 ; p < projectiles.size() ; p++)
@@ -136,6 +150,8 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 			if(xp > plimitR || xp < plimitL)
 				projectiles.remove(p);
 		}
+		
+		// Update enemies
 			
 			
 		this.repaint();

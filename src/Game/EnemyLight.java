@@ -15,7 +15,7 @@ public class EnemyLight extends IAPlayer {
 		this.setStatic(false);
 		this.setMaxDx(10);
 		this.setShoot(false);
-		this.setDirection(this.RIGHT);
+		this.setDirection(Player.RIGHT);
 	}
 	
 	public void render(Graphics2D g2d, int offset_x, int offset_y)

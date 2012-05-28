@@ -17,7 +17,7 @@ public class Human extends Player {
 		this.setStatic(false);
 		this.setMaxDx(10);
 		this.setShoot(false);
-		this.setDirection(this.RIGHT);
+		this.setDirection(Player.RIGHT);
 		
 		// Loading movement animation
 		animations = new HashMap<String, Sprite>();

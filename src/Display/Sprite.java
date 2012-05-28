@@ -2,8 +2,6 @@ package Display;
 
 import java.awt.Image;
 
-import Game.Debug;
-
 public class Sprite {
 	private int currentFrame = 0;
 	private int nbr_frame;

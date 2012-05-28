@@ -1,31 +1,16 @@
 package Physic;
 
-import java.awt.AlphaComposite;
 import java.awt.Color;
-import java.awt.Composite;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.HeadlessException;
 import java.awt.Image;
-import java.awt.Paint;
-import java.awt.Rectangle;
-import java.awt.TexturePaint;
-import java.awt.Transparency;
-import java.awt.image.BufferedImage;
-import java.util.Random;
-
 import Display.GameColor;
-import Game.Debug;
 
 public abstract class Entity {
 		
 	public static int uid_counter = 0;
 	
-	public static final int LEFT = -1;
-	public static final int RIGHT = 1;
+	public final static int LEFT = -1;
+	public final static int RIGHT = 1;
 	
 	protected int maxDx = 9999;
 

@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
-import Game.Debug;
-
 public abstract class BackgroundLayer {
 	private int x = 0, y = 0;
 	private double dx = 1, dy = 1;
@@ -45,7 +43,6 @@ public abstract class BackgroundLayer {
 				int sub_x = texture.getWidth(null) - sub_width;
 				int sub_y;
 				int r_x = 0, r_y = 0;
-				int i = 0;
 				
 				if(!this.repeatX)
 					width = texture.getWidth(null);

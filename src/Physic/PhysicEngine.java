@@ -2,8 +2,6 @@ package Physic;
 
 import java.util.ArrayList;
 
-import Game.Debug;
-
 public class PhysicEngine {
 	
 	public static final int DT = 1;

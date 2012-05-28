@@ -1,7 +1,6 @@
 package Game;
 
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.util.HashMap;
 
 import Display.GameColor;

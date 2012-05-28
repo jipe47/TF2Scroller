@@ -1,7 +1,5 @@
 package Game;
 
-import Physic.Entity;
-
 public class Bullet extends Projectile {
 	
 	public Bullet()

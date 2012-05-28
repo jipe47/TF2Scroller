@@ -14,7 +14,6 @@ import javax.swing.Timer;
 import Display.*;
 import Physic.Entity;
 import Physic.PhysicEngine;
-import Sound.SoundLibrary;
 
 @SuppressWarnings("serial")
 public class Game extends JPanel implements ActionListener, KeyListener {
@@ -41,8 +40,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 	private PhysicEngine physicEngine;
 	private Background background;
 	private Timer timer;
-	private int frame;
-	
 	private Player player;
 	private boolean player_jump = false;
 	
@@ -50,8 +47,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 	
 	public Game()
 	{
-		frame = 0;
-		
 		physicEngine = new PhysicEngine();
 		entities = new ArrayList<Entity>();
 		projectiles = new ArrayList<Projectile>();
@@ -155,8 +150,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 			
 			
 		this.repaint();
-		//Debug.echo("Frame " + frame);
-		frame++;
 	}
 
 	public void keyPressed(KeyEvent arg0) {

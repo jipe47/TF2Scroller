@@ -12,11 +12,12 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import Display.*;
+import IO.Keyboard;
 import Physic.Entity;
 import Physic.PhysicEngine;
 
 @SuppressWarnings("serial")
-public class Game extends JPanel implements ActionListener, KeyListener {
+public class Game extends JPanel implements ActionListener {
 	
 	// Game static parameters
 	public static final int GAMESPEED = 30;
@@ -41,12 +42,20 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 	private Background background;
 	private Timer timer;
 	private Player player;
+	/*
 	private boolean player_jump = false;
+	private boolean player_goLeft = false;
+	private boolean player_goRight = false;
+	*/
+	
+	private Keyboard keyboard;
 	
 	private ArrayList<IAPlayer> enemies;
 	
 	public Game()
 	{
+		keyboard = new Keyboard();
+		this.addKeyListener(keyboard);
 		physicEngine = new PhysicEngine();
 		entities = new ArrayList<Entity>();
 		projectiles = new ArrayList<Projectile>();
@@ -82,8 +91,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 		this.addEntity(new Block(-500, 700, 800, 100));
 		
 		this.addEntity(player);
-		this.addKeyListener(this);
-		
 		setFocusable(true);
 		this.requestFocus();
 	}
@@ -97,9 +104,34 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
 	// Refresh
 	public void actionPerformed(ActionEvent arg0) {
-
-		if(player_jump)
+		keyboard.poll();
+		
+		
+		//if(player_jump)
+		if(keyboard.keyDown(KeyEvent.VK_SPACE))
 			player.moveUp();
+		
+		if(keyboard.keyDown(KeyEvent.VK_RIGHT))
+		{
+			player.moveRight();
+			Debug.echo("Move right");
+		}
+		else if(keyboard.keyDown(KeyEvent.VK_LEFT))
+		{
+			player.moveLeft();
+			Debug.echo("Move left");
+		}
+		else
+		{
+			player.stop();
+			Debug.echo("Stop");
+		}
+		//if(arg0.isControlDown())
+		if(keyboard.keyDown(KeyEvent.VK_CONTROL))
+			this.startShoot();
+		else
+			this.stopShoot();
+		
 		
 		if(player_shoot_counter > 0)
 			player_shoot_counter -= GAMESPEED;
@@ -150,67 +182,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 			
 			
 		this.repaint();
-	}
-
-	public void keyPressed(KeyEvent arg0) {
-		
-		if(arg0.isControlDown())
-			this.startShoot();
-		else
-			this.stopShoot();
-		
-		switch(arg0.getKeyCode())
-		{
-			case KeyEvent.VK_LEFT:
-				player.moveLeft();
-				break;
-			case KeyEvent.VK_RIGHT:
-				player.moveRight();
-				break;
-			case KeyEvent.VK_UP:
-				//player.moveUp();
-				this.player_jump = true;
-				break;
-			case KeyEvent.VK_DOWN:
-				player.moveDown();
-				break;
-			/*case KeyEvent.VK_CONTROL:
-				this.startShoot();
-				break;*/
-			default:
-			//	Debug.echo("Unsupported key");
-		}
-	}
-
-	public void keyReleased(KeyEvent arg0) {
-		switch(arg0.getKeyCode())
-		{
-			case KeyEvent.VK_LEFT:
-				player.stopLeft();
-				break;
-			case KeyEvent.VK_RIGHT:
-				player.stopRight();
-				break;
-			case KeyEvent.VK_UP:
-				//player.stopUp();
-				this.player_jump = false;
-				break;
-			case KeyEvent.VK_DOWN:
-				player.stopDown();
-				break;
-			/*case KeyEvent.VK_CONTROL:
-				this.stopShoot();
-				break;*/
-		}
-		
-
-		if(arg0.isControlDown())
-			this.startShoot();
-		else
-			this.stopShoot();
-	}
-
-	public void keyTyped(KeyEvent arg0) {
 	}
 	
 	private void startShoot()

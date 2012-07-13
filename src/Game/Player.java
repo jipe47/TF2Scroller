@@ -52,29 +52,10 @@ public class Player extends Entity {
 	{
 		//this.setDy(-60);
 	}
-	public void stopDown()
-	{
-//		Debug.echo("STOP DOWN");
-	}
-	public void stopUp()
-	{
-		
-	}
-	public void stopLeft()
-	{
-		this.setDx(0);
-		this.setDdx(0);
-//		Debug.echo("stopLeft");
-	}
-	public void stopRight()
-	{
-		this.setDx(0);
-		this.setDdx(0);
-//		Debug.echo("stopRight");
-	}
 	public void stop()
 	{
 		this.setDdx(0);
+		this.setDx(0);
 		//this.setDy(0);
 	}
 }
